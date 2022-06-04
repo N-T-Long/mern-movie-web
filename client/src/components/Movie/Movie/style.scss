@@ -1,0 +1,223 @@
+// .movie{
+//     margin-bottom: 20px;
+//     margin-top: 10px;
+//     transition: width .3s;
+
+//     &-url{
+//         color: #FF7725;
+//         background-color: transparent;
+//     }
+
+//     &-url:hover{
+//         color: #FF7725;
+        
+//     }
+
+//     &-img{
+//         display: block;
+//         position: relative;
+//         height: 243px;
+
+//         overflow: hidden;
+//         transition: all .5s ease-in-out;
+//     }
+    
+//     &-img img{
+        
+//         pointer-events: none;
+//         position: absolute;
+//         max-width: 100%;
+
+        
+//         z-index: -1;
+//     }
+
+//     &-url:hover img{ 
+//         transform: scale(1.05);
+//         overflow:hidden;
+        
+//     }
+
+//     &-img i{
+//         position: absolute;
+//         font-size: 60px;
+//         top: 50%;  
+//         left: 50%; 
+//         transform: translate(-50%, -50%);
+//         display: none;
+//     }
+
+//     &-url:hover i{ 
+//         display: block;
+//     }
+
+//     &-img span{
+//         position: absolute;
+//         top: 3px;
+//         left: 3px;
+//         background-color: #A21D0A;
+//         color: #FFF;
+//         height: 25px;
+//         width: 30px;
+//         border-radius: 5px;
+//         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+//         text-align: center;
+//         font-size: 15px;
+//     }
+
+//     &-name{
+
+//         font-size: 16px;
+//     }
+
+//     &-other_name{
+//         font-size: 14px;
+//         color: #FFF;
+//         margin: 0;
+//     }
+
+//     &-review{
+
+//         &-views{
+//             display: flex;
+//         }
+
+//         &-views i,p{
+//             color: #FFBB00;
+//         }
+        
+//         &-rate  {
+//             display: flex;
+//         }
+
+
+//     }
+
+// }
+
+
+.movie {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    transition: width .3s;
+
+    &-url{
+        background-color: transparent;
+
+        .img-4-6{
+            background-color: #000;
+            border-radius: 5px;
+            display: block;
+            overflow: hidden;
+            padding-top: 146%;
+            width: 100%;
+            position: relative;
+            transition: all .5s ease-in-out;
+
+            .inline {
+                position: absolute;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                right: 0;
+                text-align: center;
+                font-size: 20px;
+                color: #fff; 
+
+                img{
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                    max-width: 100%;
+                    
+                }
+
+                i {
+                    display: none;
+                    position: absolute;
+                    font-size: 45px;
+                    color: #febb00;
+                    top: 50%;
+                    left: 50%;
+                    transform: translateX(-50%) translateY(-50%);
+                }
+
+                &:hover i{
+                    display: block;
+                    
+
+                }
+                &:hover img{
+                    width: 110%;
+                    max-width: none;
+                    
+
+                }
+
+            }
+            .movie-episode{
+                font-family: Arial,sans-serif;
+                position: absolute;
+                color: #fff;
+                background: #a21d0a;
+                font-size: 11px;
+                font-weight: 700;
+                float: left;
+                clear: both;
+                padding: 4px;
+                text-shadow: 1px 1px 2px #111;
+                left: 2px;
+                top: 5px;
+                white-space: nowrap;
+                display: inline-block;
+                box-shadow: 2px 2px 3px 0 rgb(0 0 0 / 75%);
+            }
+
+        }
+
+        .movie-name{
+            color: #ff8040;
+            line-height: normal;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            font-size: 15px;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .movie-other_name{
+            color: #e5e5e5;
+            margin: 0;
+            margin-top: 2px;
+            font-size: 12px;
+        }
+    }
+    .func {
+        .views {
+            padding-right: 0;
+            
+            i {
+                float: left;
+                color: #febb00;
+            }
+            a {
+                color: #8c8c8c;
+                font-size: 13px;
+                padding-left: 3px;
+            }
+
+        }
+
+        .rate {
+            padding-left: 0;
+
+            i {
+                color: #ff8040;
+                font-size: 13px;
+            }
+        }
+    }
+
+}

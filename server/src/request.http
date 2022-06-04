@@ -1,0 +1,180 @@
+ 
+###
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "long",
+    "password": "PhamHoa290417",
+    "name" : "Nguyễn Thành Long",
+    "email": "nguyenthanhlong@gmail.com"
+}
+
+###
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "long",
+    "password": "PhamHoa290417",
+    "email": "nguyenthanhlong@gmail.com"
+}
+
+###
+POST http://localhost:5000/api/movies/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjk3OTkzN2Q2MDE2NmRmZWU1OTgyODkiLCJyb2xlIjoiVXNlciIsImlhdCI6MTY1NDEwMjMyN30.3DdwJNAH5qCBlLIh1NYrYdLDIYIccmd4WM59Kt7BW1M
+
+{
+    "name" : "Cặp Đôi Hoàn Hảo",
+    "other_name" : "A Perfect Pairing",
+    "view" : 0,
+    "type" : "Phim lẻ",
+    "year" : "2022",
+    "duration" : "102",
+    "description" : "Để có thể tiếp cận khách hàng của mình, một chuyên viên pha chế rượu đã du lịch từ LA tới một nông trại cừu ở Úc. Tại đây, cô tình nguyện phụ việc trong nông trại và vô tình tìm thấy tình yêu của đời mình...",
+    "cast" : [
+        {
+            "name": "Victoria Justice"
+        },
+        {
+            "name": "Adam Demos"
+        },
+        {
+            "name": "Luca Sardelis"
+        },
+        {
+            "name": "Craig Horner"
+        },
+        {
+            "name": "Lucy Durack"
+        }
+    ],
+    "genres" : [
+        {
+            "name": "Hài hước"
+        },
+        {
+            "name": "Tình cảm"
+        },
+        {
+            "name": "lãng mạn"
+        }
+    ],
+    "language" : "Tiếng Việt",
+    "episode" : [
+        {
+            "name": "Full",
+            "URL_episode": "youtube.com/embed/4hhOZ1QWU4g"
+        }
+    ], 
+    "URL_image": "https://static.247phim.com/165025/conversions/628b12a5c09f5_perfect-pairing-435_627.jpg"
+}
+
+
+
+###
+GET http://localhost:5000/api/movies/
+###
+GET http://localhost:5000/api/admin/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzMzU2NDJ9.8mqb_gsRalWW3RcPBXYWwegx0Vvet0nyfQOardz_W9Y
+
+
+
+
+//Get Pofile user
+###
+GET http://localhost:5000/api/user/profile
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzMzY1MTN9.E78petYGxllC968hfpgYSY-ga1UWD_n1izeOawUI5Lw
+
+
+//Get list movies user liked
+###
+GET http://localhost:5000/api/user/like-movies
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzMzY1MTN9.E78petYGxllC968hfpgYSY-ga1UWD_n1izeOawUI5Lw
+
+//Update list movies user liked
+###
+POST http://localhost:5000/api/user/like-movies/new
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjViMGE5YzA3OThlZWQ5OTcyNTA5NzQiLCJpYXQiOjE2NTI1NjQyNTh9.soBDzoBKhHnPL-BDzHnrusQDm0EQ3Bv2fERnuNQ57vc
+
+{
+    "movie_ID" : "625b2a6971a870a1bacc3791"
+}
+
+//Get list movies user followed
+###
+GET http://localhost:5000/api/user/follow-movies
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjViMGE5YzA3OThlZWQ5OTcyNTA5NzQiLCJpYXQiOjE2NTI1NjQyNTh9.soBDzoBKhHnPL-BDzHnrusQDm0EQ3Bv2fERnuNQ57vc
+
+//Update list movies user followed
+###
+POST http://localhost:5000/api/user/follow-movies/new
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjViMGE5YzA3OThlZWQ5OTcyNTA5NzQiLCJpYXQiOjE2NTI1NjQyNTh9.soBDzoBKhHnPL-BDzHnrusQDm0EQ3Bv2fERnuNQ57vc
+
+{
+    "movie_ID" : "625b2a6971a870a1bacc3791"
+}
+
+//Get list movies user viewed
+###
+GET http://localhost:5000/api/user/viewed-movies
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjViMGE5YzA3OThlZWQ5OTcyNTA5NzQiLCJpYXQiOjE2NTI1NjQyNTh9.soBDzoBKhHnPL-BDzHnrusQDm0EQ3Bv2fERnuNQ57vc
+
+//Update list movies user viewed
+###
+POST http://localhost:5000/api/user/viewed-movies/new
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjgwYjY2MzY1MjM1NmI2ZDU4YjkxZTgiLCJpYXQiOjE2NTI2MDI1Mjl9.nxhE2ufwMSgu7QIcQX_eMiMVC62Sl4F_UADEDDtkD-g
+
+{
+    "movie_ID" : "6280bb5e652356b6d58b91f5"
+}
+
+
+// update user's profile 
+###
+POST http://localhost:5000/api/user/profile/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjgwYjY2MzY1MjM1NmI2ZDU4YjkxZTgiLCJpYXQiOjE2NTI2MDI1Mjl9.nxhE2ufwMSgu7QIcQX_eMiMVC62Sl4F_UADEDDtkD-g
+
+{
+    "name" : "Nguyen Thanh Long"
+}
+
+
+###
+GET http://localhost:5000/api/admin/movies
+
+###
+GET http://localhost:5000/api/admin/users
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjg4YTQ2YTZkMzYxZGIyNzQxZjhkMTQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NTMxMjU5NTF9.XswXV8KgijHf2SpwXiXyz0_DEyStjqJMGoinQaFDRSM
+
+###
+POST http://localhost:5000/api/admin/category/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjg4YTQ2YTZkMzYxZGIyNzQxZjhkMTQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NTMxMjkzNjJ9.HlJmHFQEEFDUL4S9v-vemLRD1TKYGiylF_r32O8d_qE
+
+{
+    "name": "Clip ngắn",
+    "url": "clip-ngan",
+    "group": "TheLoai"
+}
+
+###
+###
+GET http://localhost:5000/api/admin/categories/PhimLe
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2Mjg4YTQ2YTZkMzYxZGIyNzQxZjhkMTQiLCJyb2xlIjoiQWRtaW4iLCJpYXQiOjE2NTMxMjkzNjJ9.HlJmHFQEEFDUL4S9v-vemLRD1TKYGiylF_r32O8d_qE
+
+###
+//Categories 
+GET http://localhost:5000/api/categories

@@ -1,0 +1,14 @@
+.footer {
+    margin-top: 100px;
+    padding-top: 35px;
+    padding-bottom: 50px;
+    background-color: #000;
+    color: #8c8c8c;
+    font-size: 14px;
+
+    &-link{
+        color: #8c8c8c;
+        display: block;
+        margin-bottom: 10px;
+    }
+}

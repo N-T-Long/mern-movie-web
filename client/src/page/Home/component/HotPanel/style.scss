@@ -1,0 +1,8 @@
+.hot-panel{
+    max-height: 50rem;
+    overflow: scroll;
+}
+
+.scroll-wapper > .movies{
+    max-width: calc(97% - 14px)!important;
+}

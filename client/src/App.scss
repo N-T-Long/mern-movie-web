@@ -1,0 +1,51 @@
+@use "./scss/" as *;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;900&display=swap');
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Be Vietnam,sans-serif ;
+    font-weight: 400;
+    font-style: nomal;
+    line-height: 1.5;
+    display: block;
+    background-color: #0c0c0c;
+    color: #e5e5e5;
+}
+
+a {
+    text-decoration: none;
+    color: #e5e5e5;
+    background-color: transparent;
+}
+
+a:hover {
+    color: #febb00;
+    text-decoration: none;
+}
+
+
+
+.title {
+    color: #febb00;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+
+@media (min-width: 1200px){
+    .container {
+        max-width: 1200px;
+    }
+}
+
+.content {
+    min-height: 328px;
+}
