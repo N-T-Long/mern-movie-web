@@ -16,7 +16,6 @@ const PublicRoutes = () => {
       <Route path="/dang-ky" element={<SignUp />} />
       <Route path="/dang-nhap" element={<SignIn />} />
       <Route path="/tai-khoan" element={<Profile />} />
-
     </Routes>
   );
 };
