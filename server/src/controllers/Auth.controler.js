@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const argon2 = require("argon2");
-const { User } = require("../models/index");
+const User = require("../models/User.model");
 const { signAccessToken } = require("../middlewares/auth");
 
 // register new account
@@ -14,7 +14,6 @@ const registerController = async (req, res) => {
       success: false,
       messeage: "Missing username and/or password and/or email",
     });
-
   try {
     // Check for existing user
     const user = await User.findOne({ username });
@@ -22,7 +21,7 @@ const registerController = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, messeage: "Username already taken" });
-
+    console.log(username)
     // Check for existing email
     const user2 = await User.findOne({ email });
     if (user2)
@@ -41,16 +40,12 @@ const registerController = async (req, res) => {
     await newUser.save();
 
     // Return token
-    const accessToken = await signAccessToken({
-      userID: newUser._id,
-      role: newUser.role,
-    });
+    const accessToken = signAccessToken({ userID: user._id, role: user.role });
 
     res.json({
       success: true,
       messeage: "User created successfully",
       accessToken: accessToken,
-      newUser,
     });
   } catch (error) {
     res.status(500).json({

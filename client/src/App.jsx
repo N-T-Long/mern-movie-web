@@ -4,9 +4,12 @@ import "./App.scss";
 import Footer from "./components/layout/Footer";
 import Headers from "./components/layout/Header";
 import PublicRoutes from "./routes";
+import { Provider } from "react-redux";
+
 
 function App() {
   return (
+
     <div className="App">
       <Headers />
       <div className="content" >
