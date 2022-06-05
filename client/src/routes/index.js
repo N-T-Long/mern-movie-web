@@ -16,7 +16,7 @@ const PublicRoutes = () => {
       <Route path="/tim-kiem" element={<Search />} />
       <Route path="/dang-ky" element={<SignUp />} />
       <Route path="/dang-nhap" element={<SignIn />} />
-
+      <Route path="/tai-khoan" element={<Profile />} />
       <Route path="/*" element={<NotFound />} />
     </Routes>
   );
