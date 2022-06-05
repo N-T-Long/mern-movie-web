@@ -180,7 +180,7 @@ const createNewMovie = async (req, res) => {
 };
 
 const createNewSlice = async (req, res) => {
-  const { URL_image, URL_movie } = req.body;
+  const { URL_image, URL_movie, name, other_name } = req.body;
   if (!URL_image) {
     return res.status(401).json({
       success: false,
@@ -195,13 +195,14 @@ const createNewSlice = async (req, res) => {
   }
 
   try {
-    const slide = new Slide({ URL_image, URL_movie });
+    const slide = new Slide({ URL_image, URL_movie, name, other_name });
     // add new slide
     slide.save();
 
     const slides = await Slide.find();
+
     // remove first slice if count > 4
-    if (slides.length > 4) await Slide.findByIdAndRemove(slides[0]._id);
+    if (slides.length > 3) await Slide.findByIdAndRemove(slides[0]._id);
 
     return res.status(401).json({
       success: true,

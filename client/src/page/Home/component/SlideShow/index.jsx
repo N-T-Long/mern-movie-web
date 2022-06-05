@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import "./style.scss";
 import {Carousel, } from "react-bootstrap"
 import 'swiper/css';
+import publicApi from "../../../../api/publicApi"
 
 // import PropTypes from 'prop-types';
 
@@ -9,53 +10,38 @@ SlideShow.propTypes = {
     
 };
 
-const slides = [
-    {
-        id: 1,
-        name:"Chuyện tình Udon",
-        secondName:"Chuyện tình Udon",
-        urlMovie: "https://247phim.com/xemphim/chuyen-tinh-udon-24012",
-        uslImage: "https://static.247phim.com/165077/conversions/6291c7ec45f3c_nuhon1-1920_660.jpg",
-    },
-    {
-        id: 2,
-        name:"CHÀO MỪNG TỚI EDEN",
-        secondName:"Chào mừng tới eden",
-        urlMovie: "https://247phim.com/xemphim/chao-mung-toi-eden-24086",
-        uslImage: "https://static.247phim.com/165032/conversions/628b3db7353ce_mami1-1920_660.jpg",
-    },
-    {
-        id: 3,
-        name:"QUY TẮC CỦA QUỶ",
-        secondName:"Quy tắc của quỷ",
-        urlMovie: "https://247phim.com/xemphim/quy-tac-cua-quy-co-24068",
-        uslImage: "https://static.247phim.com/165087/conversions/62944ed9e571c_obi1-1920_660.jpg",
-    },
-    {
-        id: 4,
-        name:"MA CÀ RỒNG MORBIUS",
-        secondName:"Ma cà rồng Mobius",
-        urlMovie: "https://247phim.com/xemphim/ma-ca-rong-morbius-24091",
-        uslImage: "https://static.247phim.com/165075/conversions/6291c36239e78_strangerthing41-1920_660.jpg",
-    },
-]
 function SlideShow(props) {
+    const [slides, setSlides] = useState([]);
+    // list slide
+    useEffect(() => {
+        const fetchSlides = async () => {
+            try {
+                const response = await publicApi.getSlides();
+                setSlides(response.slides);
+
+            } catch (error) {
+                console.log("Falsed to fetch movie list", error);
+            }
+        }
+        
+        fetchSlides();
+    },[])
     return (
         <Carousel>
             {
-                slides.map(item => {
-                    return <Carousel.Item key={item.id}>
-                    <>
+                slides.map((item, index) => {
+                    return <Carousel.Item key={index}>
+                    <a href={item.URL_Movie}>
                     <img
                       className="d-block w-100"
-                      src={item.uslImage}
-                      alt={`slice ${item.id}`}
+                      src={item.URL_image}
+                      alt={`slice ${index}`}
                     />
                         <div className="carousel-item-caption">
-                            <h4>{item.name}</h4>
-                            <h5>{item.secondName}</h5>
+                            <h4>{item.other_name}</h4>
+                            <h5>{item.name}</h5>
                         </div>                    
-                    </>
+                    </a>
                   </Carousel.Item>
                 })
             }

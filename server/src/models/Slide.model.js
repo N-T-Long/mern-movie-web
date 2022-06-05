@@ -10,6 +10,14 @@ const SlideSchema = new Schema({
     type: String,
     require: true,
   },
+  name: {
+    type: String,
+    require: true,
+  },
+  other_name: {
+    type: String,
+    require: true,
+  },
 });
 
 module.exports = mongoose.model("slides", SlideSchema);

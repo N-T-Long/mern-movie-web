@@ -18,18 +18,33 @@ Home.propTypes = {
 
 function Home(props) {
     const [movies, setMovies] = useState([]);
-
+    const [slides, setSlides] = useState([]);
+    
     useEffect(() => {
         const fetchMovies = async () => {
             try {
                 const response = await publicApi.getMovies();
                 setMovies(response.movies)
             } catch (error) {
-                console.log("Falsed to fetch categories list", error);
+                console.log("Falsed to fetch movie list", error);
             }
         }
         
         fetchMovies();
+    },[])
+    // list slide
+    useEffect(() => {
+        const fetchSlides = async () => {
+            try {
+                const response = await publicApi.getSlides();
+                console.log("slide",response.slides)
+
+            } catch (error) {
+                console.log("Falsed to fetch movie list", error);
+            }
+        }
+        
+        fetchSlides();
     },[])
 
     return (

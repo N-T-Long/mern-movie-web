@@ -93,10 +93,8 @@ function SignIn(props) {
                 </Form>
                 <p className="p-signup">
                     Bạn chưa có tài khoản?
-                    <Link to="/dang-ky">
-                        <Button variant="success" size="sm" className="ml-2">
+                    <Link to="/dang-ky" style={{color: "#ffbb00", marginLeft: "10px"}}>
                             Đăng ký
-                        </Button>
                     </Link>
                 </p>
             </div>

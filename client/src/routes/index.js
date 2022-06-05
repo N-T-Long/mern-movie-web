@@ -14,10 +14,10 @@ const PublicRoutes = () => {
       <Route path="/xem-phim" element={<WatchMovie />} />
       <Route path="/tai-khoan" element={<Profile />} />
       <Route path="/tim-kiem" element={<Search />} />
-      <Route path="/*" element={<NotFound />} />
       <Route path="/dang-ky" element={<SignUp />} />
       <Route path="/dang-nhap" element={<SignIn />} />
 
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   );
 };

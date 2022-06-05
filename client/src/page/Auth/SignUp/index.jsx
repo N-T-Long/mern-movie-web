@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import PropTypes from "prop-types";
-import "./style.css";
+import "./style.scss";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -112,10 +112,8 @@ function SignUp(props) {
                 </Form>
                 <p className="p-signup">
                     Bạn đã có tài khoản?
-                    <Link to="/dang-nhap">
-                        <Button variant="success" size="sm" className="ml-2">
+                    <Link to="/dang-nhap" style={{color: "#ffbb00", marginLeft: "10px"}}>
                             Đăng nhập
-                        </Button>
                     </Link>
                 </p>
             </div>

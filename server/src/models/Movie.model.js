@@ -32,7 +32,7 @@ const MovieSchema = new Schema({
   },
   duration: Number,
   description: String,
-  cast: [{ name: String }],
+  casts: [{ name: String }],
   genres: [
     {
       type: mongoose.Types.ObjectId,
@@ -40,7 +40,7 @@ const MovieSchema = new Schema({
     },
   ],
   language: String,
-  episode: [
+  episodes: [
     {
       name: String,
       URL_episode: String,

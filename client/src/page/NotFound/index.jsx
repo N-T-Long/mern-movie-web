@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link } from  "react-router-dom"
 import ListMovies from '../../components/ListMovies';
 //import PropTypes from 'prop-types';
 import "./style.scss";
@@ -10,9 +11,16 @@ import "./style.scss";
 
 function index(props) {
     return (
-        <video src="http://localhost:4000" id="videoPlayer" width="1000px" controls muted="muted" autoplay>
-
-        </video>
+        <>
+        <h1 style={{marginTop: "100px"}}>404. Không tìm thấy đường dẫn này</h1>
+        <h2>Bạn có thể truy cập vào  
+            <Link to="/" style={{
+                color: "#ffbb00",
+                marginLeft: "10px"
+            }}>Trang chủ</Link>
+        </h2>
+        
+        </>
 
     );
     

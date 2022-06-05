@@ -42,7 +42,6 @@ const verifyAccessToken = (req, res, next) => {
 const signAccessToken = async (accessToken) => {
   return new Promise((resolve, reject) => {
     const secret = process.env.ACCESS_TOKEN_SECRET;
-    console.log(secret);
     const options = {};
 
     JWT.sign(accessToken, secret, options, (err, token) => {

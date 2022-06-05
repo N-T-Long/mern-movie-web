@@ -1,4 +1,4 @@
-const { Movie } = require("../models/index");
+const { Movie, Slide } = require("../models/index");
 
 const getAllMovies = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
