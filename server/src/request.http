@@ -97,10 +97,18 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
 
 {
-    "URL_image": "https://static.247phim.com/165085/conversions/629447e5dbfab_csvd1-1920_660.jpg",
-    "URL_movie": "https://247phim.com/xemphim/canh-sat-vinh-du-24177"
+"URL_image":"https://static.247phim.com/165032/conversions/628b3db7353ce_mami1-1920_660.jpg",
+"URL_movie":"https://247phim.com/xemphim/ve-dep-ma-mi-24144",
+"name":"Vẻ Đẹp Ma Mị",
+"other_name":"Chom Chod"
+
 }
 ###
+
+
+
+
+
 
 ### GET all slides
 GET http://localhost:5000/api/admin/slides
@@ -118,10 +126,16 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
 
 {
-    "name": "Clip ngắn",
-    "name_URL": "clip-ngan"
+
+"name":"Cổ trang","name_URL":"co-trang"
+
 }
 ###
+
+
+
+
+
 
 ### GET all genres
 GET http://localhost:5000/api/admin/genres
@@ -136,13 +150,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliM
 ### Add new country
 POST http://localhost:5000/api/admin/countries/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjljNmRhYzE3OWE4OWFjNjQ1NzhhMjMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ0MjAwMDJ9.z6ajvWCZKLjuGuwJewIpQwHzNler5hQ8C8FJhtfgzxU
 
 {
-    "name": "Quốc gia khác",
-    "name_URL": "quoc-gia-khac"
+    "name":"Việt Nam","name_URL":"viet-nam"
 }
 ###
+
+
 
 ### GET all countries
 GET http://localhost:5000/api/admin/countries
@@ -186,6 +201,21 @@ Content-Type: application/json
 
 ### GET all movie
 GET http://localhost:5000/api/movies
+###
+
+### GET all slides
+GET http://localhost:5000/api/slides
+###
+
+
+### GET all country
+GET http://localhost:5000/api/countries
+###
+
+### GET all genres
+GET http://localhost:5000/api/genres
+###
+
 
 ###
 GET http://localhost:5000/api/movies?page=2&limit=2

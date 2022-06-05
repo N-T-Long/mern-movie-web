@@ -11,8 +11,8 @@ import "./style.scss";
 
 function index(props) {
     return (
-        <>
-        <h1 style={{marginTop: "100px"}}>404. Không tìm thấy đường dẫn này</h1>
+        <div style={{paddingTop: "200px", paddingLeft: "200px"}}>
+        <h1 >404. Không tìm thấy đường dẫn này</h1>
         <h2>Bạn có thể truy cập vào  
             <Link to="/" style={{
                 color: "#ffbb00",
@@ -20,7 +20,7 @@ function index(props) {
             }}>Trang chủ</Link>
         </h2>
         
-        </>
+        </div>
 
     );
     

@@ -6,6 +6,7 @@ import WatchMovie from "../page/WatchMovie";
 import NotFound from "../page/NotFound";
 import SignIn from "../page/Auth/SignIn";
 import SignUp from "../page/Auth/SignUp";
+import Admin from "../page/Admin";
 const PublicRoutes = () => {
   return (
     <Routes>
@@ -20,4 +21,13 @@ const PublicRoutes = () => {
   );
 };
 
+const PrivateRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/admin" element={<Admin />} />;
+    </Routes>
+  );
+};
 export default PublicRoutes;
+
+export { PrivateRoutes };

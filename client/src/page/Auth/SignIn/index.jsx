@@ -23,6 +23,7 @@ function SignIn(props) {
 
     const handleLogin = (data) => {
         dispatch(authApi.signIn(data.username, data.password));
+        
     };
     const signInOptions = {
         username: { required: "Username is required" },

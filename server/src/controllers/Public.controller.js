@@ -1,4 +1,4 @@
-const { Movie, Slide } = require("../models/index");
+const { Movie, Slide, Genre, Country } = require("../models/index");
 
 const getAllMovies = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
@@ -59,10 +59,10 @@ const getAllGenre = async (req, res) => {
 
 const getAllCountry = async (req, res) => {
   try {
-    const Countries = await Country.find();
+    const countries = await Country.find();
     return res.status(200).json({
       success: true,
-      Countries,
+      countries,
     });
   } catch (error) {
     console.log(error);

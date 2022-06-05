@@ -13,6 +13,14 @@ const publicApi = {
     let url = "/slides";
     return axiosClient.get(url, { params });
   },
+  getGenres: (params) => {
+    let url = "/genres";
+    return axiosClient.get(url, { params });
+  },
+  getCountries: (params) => {
+    let url = "/countries";
+    return axiosClient.get(url, { params });
+  },
 };
 
 export default publicApi;

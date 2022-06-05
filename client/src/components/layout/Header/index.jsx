@@ -7,7 +7,22 @@ import "./style.scss";
 
 
 function Header(props) {
+    const [genres, setGenres] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [countries, setCountries] = useState([]);
+    
+    useEffect(() => {
+        const fetchCountries = async () => {
+            try {
+                const response = await publicApi.getCountries();
+                setCountries(response.countries);
+            } catch (error) {
+                console.log("Falsed to fetch categories list", error);
+            }
+        }
+        fetchCountries();
+    },[]);
+
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -19,7 +34,23 @@ function Header(props) {
         }
         fetchCategories();
     },[]);
+    
+    useEffect(() => {
+        const fetchGenres = async () => {
+            try {
+                const response = await publicApi.getGenres();
+                setGenres(response.genres);
 
+            } catch (error) {
+                console.log("Falsed to fetch categories list", error);
+            }
+        }
+        fetchGenres();
+
+    },[]);
+    const years = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+    const 
+    
     return (
 
         <Navbar collapseOnSelect expand="lg" fixed='top'  variant="dark" className='menu-top'>
@@ -38,37 +69,35 @@ function Header(props) {
                     <Nav className="main-menu">
                         <NavDropdown  title="Phim lẻ" id="phimle-dropdown" className='nav-dropdown-item' >
                                 {
-                                    categories.map(
+                                    years.map(
                                         (item, index) => {
-                                            if (item.group === "PhimLe") 
-                                        return <Link to={`/phim-le/${item.link}`} key={index} className="dropdown-item">{item.name}</Link>}
+                                            return <Link to={`/phim-le/${item}`} key={index} className="dropdown-item">Phim lẻ {item}</Link>}
+                                    
                                     )
                                 }
                         </NavDropdown>
                         <NavDropdown  title="Phim bộ" id="phimbo-dropdown" className="nav-dropdown-item">
                             {
-                                categories.map(
+                                years.map(
                                     (item, index) => {
-                                        if (item.group === "PhimBo") 
-                                    return <Link to={`/phim-le/${item.link}`} key={index} className="dropdown-item">{item.name}</Link>}
+                                        return <Link to={`/phim-le/${item}`} key={index} className="dropdown-item">{item}</Link>}
+                                
                                 )
                             }
                         </NavDropdown>
                         <NavDropdown title="Quốc gia" id="quociga-dropdown"className="nav-dropdown-item">
                             {
-                                categories.map(
+                                countries.map(
                                     (item, index) => {
-                                        if (item.group === "QuocGia") 
-                                    return <Link to={`/phim-le/${item.link}`} key={index} className="dropdown-item">{item.name}</Link>}
+                                    return <Link to={`/quoc-gia/${item.name_URL}`} key={index} className="dropdown-item">{item.name}</Link>}
                                 )
                             }
                         </NavDropdown>
                         <NavDropdown  title="Thể loại" id="theloai-dropdown"className="nav-dropdown-item">
                             { 
-                                categories.map(
+                                genres.map(
                                     (item, index) => {
-                                        if (item.group === "TheLoai") 
-                                    return <Link to={`/phim-le/${item.link}`} key={index} className="dropdown-item">{item.name}</Link>}
+                                    return <Link to={`/the-loai/${item.name_URL}`} key={index} className="dropdown-item">{item.name}</Link>}
                                 )
                             }
                         </NavDropdown>
