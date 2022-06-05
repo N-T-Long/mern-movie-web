@@ -16,7 +16,7 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
 
 {
-    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 2",
+    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 4",
     "other_name" : "Larva Pendant",
     "likes" : 0,
     "views" : 1,
@@ -161,9 +161,9 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "long4",
+    "username": "long10",
     "password": "PhamHoa290417",
-    "email": "nguyenthanhlong4@gmail.com"
+    "email": "nguyenthanhlong10@gmail.com"
 }
 ###
 
@@ -173,9 +173,8 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "long",
-    "password": "PhamHoa290417",
-    "email": "nguyenthanhlong@gmail.com"
+    "username": "nguyenthanhlong@gmail.com",
+    "password": "PhamHoa290417"
 }
 ###
 
@@ -186,7 +185,7 @@ Content-Type: application/json
 
 
 ### GET all movie
-GET http://localhost:5000/api/movies/
+GET http://localhost:5000/api/movies
 
 ###
 GET http://localhost:5000/api/movies?page=2&limit=2

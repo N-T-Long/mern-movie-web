@@ -22,7 +22,6 @@ function SignIn(props) {
 
 
     const handleLogin = (data) => {
-        console.log(data);
         dispatch(authApi.signIn(data.username, data.password));
     };
     const signInOptions = {

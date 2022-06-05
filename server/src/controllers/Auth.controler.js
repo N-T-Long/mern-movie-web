@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const argon2 = require("argon2");
-const User = require("../models/User.model");
+const { User } = require("../models/index");
 const { signAccessToken } = require("../middlewares/auth");
 
 // register new account
@@ -21,7 +21,6 @@ const registerController = async (req, res) => {
       return res
         .status(400)
         .json({ success: false, messeage: "Username already taken" });
-    console.log(username)
     // Check for existing email
     const user2 = await User.findOne({ email });
     if (user2)
@@ -38,11 +37,15 @@ const registerController = async (req, res) => {
       email: email,
     });
     await newUser.save();
+    const userCreated = await User.findOne({ username: username });
 
-    // Return token
-    const accessToken = signAccessToken({ userID: user._id, role: user.role });
+    //Return token
+    const accessToken = await signAccessToken({
+      userID: userCreated._id,
+      role: userCreated.role,
+    });
 
-    res.json({
+    return res.json({
       success: true,
       messeage: "User created successfully",
       accessToken: accessToken,
@@ -57,19 +60,23 @@ const registerController = async (req, res) => {
 };
 
 const loginController = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
+
   // Simble validation
-  if (!username || !password || !email)
+  if (!username || !password)
     return res.status(400).json({
       success: false,
       messeage: "Missing username and/or password and/or email",
     });
+
   try {
-    const user = await User.findOne({ username });
+    const user1 = await User.findOne({ username: username });
+    const user2 = await User.findOne({ email: username });
+    const user = user1 || user2;
     if (!user)
       return res.status(400).json({
         success: false,
-        message: "Incorrect username or password",
+        message: "User not found!!!!",
       });
 
     // Username found
@@ -77,7 +84,7 @@ const loginController = async (req, res) => {
     if (!passwordValid)
       return res.status(400).json({
         success: false,
-        message: "Incorrect username or password",
+        message: "Incorrect password",
       });
 
     // All good
@@ -86,7 +93,7 @@ const loginController = async (req, res) => {
       role: user.role,
     });
 
-    res.json({
+    return res.json({
       success: true,
       messeage: "Login successfully",
       accessToken: accessToken,

@@ -19,7 +19,6 @@ function SignUp(props) {
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
 
     const handleRegister = (data) => {
-        console.log(data);
         dispatch(authApi.signUp(data.username, data.email, data.password));
     };
     const handleError = (errors) => { };
