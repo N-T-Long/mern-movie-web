@@ -52,13 +52,10 @@ const signAccessToken = async (accessToken) => {
   });
 };
 
+// Check user role
 const authPage = (permission) => {
   return (req, res, next) => {
-    const authHeader = req.header("Authorization");
-    const token = authHeader && authHeader.split(" ")[1];
-    const decoded = JWT.verify(token, process.env.ACCESS_TOKEN_SECRET);
-    const role = decoded.role;
-    console.log(role);
+    const role = req.payload.role;
     if (!permission.includes(role)) {
       return res.status(401).json({
         success: false,

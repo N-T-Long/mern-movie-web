@@ -11,3 +11,5 @@ const SlideSchema = new Schema({
     require: true,
   },
 });
+
+module.exports = mongoose.model("slides", SlideSchema);

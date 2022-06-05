@@ -14,16 +14,31 @@ const MovieSchema = new Schema({
     type: Number,
     default: 0,
   },
-  view: {
+  views: {
     type: Number,
     default: 0,
   },
-  type: String,
-  year: Number,
+  director: [{ name: String }],
+  country: {
+    type: mongoose.Types.ObjectId,
+    ref: "countries",
+  },
+  type_movie: {
+    type: String,
+    enum: ["phimle", "phimbo"],
+  },
+  year: {
+    type: Number,
+  },
   duration: Number,
   description: String,
-  cast: [String],
-  genres: [mongoose.Types.ObjectId],
+  cast: [{ name: String }],
+  genres: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: "genres",
+    },
+  ],
   language: String,
   episode: [
     {
@@ -34,7 +49,7 @@ const MovieSchema = new Schema({
   comments: [
     {
       body: String,
-      user_id: {
+      userID: {
         type: mongoose.Types.ObjectId,
         ref: "users",
       },
@@ -45,6 +60,11 @@ const MovieSchema = new Schema({
     default: 0,
   },
   URL_image: String,
+  create_at: {
+    type: Date,
+    require: true,
+    default: Date.now,
+  },
 });
 
 module.exports = mongoose.model("movies", MovieSchema);

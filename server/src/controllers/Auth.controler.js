@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const argon2 = require("argon2");
-const User = require("../models/User.model");
+const { User } = require("../models/index");
 const { signAccessToken } = require("../middlewares/auth");
 
 // register new account
@@ -41,12 +41,16 @@ const registerController = async (req, res) => {
     await newUser.save();
 
     // Return token
-    const accessToken = signAccessToken({ userID: user._id, role: user.role });
+    const accessToken = await signAccessToken({
+      userID: newUser._id,
+      role: newUser.role,
+    });
 
     res.json({
       success: true,
       messeage: "User created successfully",
       accessToken: accessToken,
+      newUser,
     });
   } catch (error) {
     res.status(500).json({
