@@ -54,9 +54,9 @@ function SignUp(props) {
         <>
             <div className="form-auth">
                 <h1 className="form-title">Đăng ký</h1>
-                <small className="text-danger">
-                    {auth?.error && auth.error.message}
-                </small>
+                {auth.errors ? (
+                    <h2 className="text-danger">{auth.errors}</h2>
+                ) : null}
                 <Form className="my-4">
                     <Form.Group>
                         <Form.Control

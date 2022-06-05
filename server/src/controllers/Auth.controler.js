@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const argon2 = require("argon2");
-const { User } = require("../models/index");
+const User = require("../models/User.model");
 const { signAccessToken } = require("../middlewares/auth");
 
 // register new account
@@ -37,15 +37,11 @@ const registerController = async (req, res) => {
       email: email,
     });
     await newUser.save();
-    const userCreated = await User.findOne({ username: username });
 
-    //Return token
-    const accessToken = await signAccessToken({
-      userID: userCreated._id,
-      role: userCreated.role,
-    });
+    // Return token
+    const accessToken = signAccessToken({ userID: user._id, role: user.role });
 
-    return res.json({
+    res.json({
       success: true,
       messeage: "User created successfully",
       accessToken: accessToken,
@@ -60,23 +56,19 @@ const registerController = async (req, res) => {
 };
 
 const loginController = async (req, res) => {
-  const { username, password } = req.body;
-
+  const { username, email, password } = req.body;
   // Simble validation
-  if (!username || !password)
+  if (!username || !password || !email)
     return res.status(400).json({
       success: false,
       messeage: "Missing username and/or password and/or email",
     });
-
   try {
-    const user1 = await User.findOne({ username: username });
-    const user2 = await User.findOne({ email: username });
-    const user = user1 || user2;
+    const user = await User.findOne({ username });
     if (!user)
       return res.status(400).json({
         success: false,
-        message: "User not found!!!!",
+        message: "Incorrect username or password",
       });
 
     // Username found
@@ -84,7 +76,7 @@ const loginController = async (req, res) => {
     if (!passwordValid)
       return res.status(400).json({
         success: false,
-        message: "Incorrect password",
+        message: "Incorrect username or password",
       });
 
     // All good
@@ -93,7 +85,7 @@ const loginController = async (req, res) => {
       role: user.role,
     });
 
-    return res.json({
+    res.json({
       success: true,
       messeage: "Login successfully",
       accessToken: accessToken,
