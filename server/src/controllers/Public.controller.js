@@ -3,9 +3,11 @@ const { Movie } = require("../models/index");
 const getAllMovies = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 9;
-  const sort = req.query.limit;
+  const valueQuery = req.query.q || "";
   try {
-    const movies = await Movie.find()
+    const movies = await Movie.find({
+      name: { $regex: ".*" + valueQuery + ".*" },
+    })
       .skip((page - 1) * limit)
       .limit(limit);
     // .exec((err, doc) => {
@@ -20,7 +22,7 @@ const getAllMovies = async (req, res) => {
     //     });
     //   }
     // });
-    console.log(Movie.countDocuments());
+
     // if (movies)
     //   return res.status(200).json({
     //     success: false,

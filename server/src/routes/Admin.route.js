@@ -8,7 +8,8 @@ const {
   getAllGenre,
   getAllCountry,
   createCategory,
-  createMovie,
+  createNewEpisode,
+  createNewMovie,
   createNewSlice,
   createNewGenre,
   createNewCountry,
@@ -58,7 +59,7 @@ route.post(
   "/movies/create",
   verifyAccessToken,
   authPage(["admin"]),
-  createMovie
+  createNewMovie
 );
 
 // @Router DELETE /api/admin/movies/:movieID
@@ -79,6 +80,16 @@ route.patch(
   verifyAccessToken,
   authPage(["admin"]),
   updateMovie
+);
+
+// @Router PATCH /api/admin/movies/:movieID/episodes/create
+// @desc Update a movie - add new episode
+// @access private
+route.patch(
+  "/movies/:movieID/episodes/create",
+  verifyAccessToken,
+  authPage(["admin"]),
+  createNewEpisode
 );
 
 // @Router GET /api/admin/slides
