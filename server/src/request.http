@@ -176,9 +176,9 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "long10",
-    "password": "PhamHoa290417",
-    "email": "nguyenthanhlong10@gmail.com"
+    "username": "bachga1",
+    "password": "bachga1",
+    "email": "bachga1"
 }
 ###
 
@@ -188,8 +188,8 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "nguyenthanhlong@gmail.com",
-    "password": "PhamHoa290417"
+    "username": "bachga",
+    "password": "bachga"
 }
 ###
 

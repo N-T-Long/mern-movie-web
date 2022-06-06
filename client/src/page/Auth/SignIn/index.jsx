@@ -23,16 +23,12 @@ function SignIn(props) {
 
     const handleLogin = (data) => {
         dispatch(authApi.signIn(data.username, data.password));
-        
+
     };
     const signInOptions = {
         username: { required: "Username is required" },
         password: {
             required: "Password is required",
-            minLength: {
-                value: 8,
-                message: "Password must have at least 8 characters"
-            }
         }
     };
     useEffect(() => {
@@ -94,8 +90,8 @@ function SignIn(props) {
                 </Form>
                 <p className="p-signup">
                     Bạn chưa có tài khoản?
-                    <Link to="/dang-ky" style={{color: "#ffbb00", marginLeft: "10px"}}>
-                            Đăng ký
+                    <Link to="/dang-ky" style={{ color: "#ffbb00", marginLeft: "10px" }}>
+                        Đăng ký
                     </Link>
                 </p>
             </div>

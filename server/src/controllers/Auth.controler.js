@@ -12,7 +12,7 @@ const registerController = async (req, res) => {
   if (!username || !password || !email)
     return res.status(400).json({
       success: false,
-      messeage: "Missing username and/or password and/or email",
+      message: "Missing username and/or password and/or email",
     });
   try {
     // Check for existing user
@@ -36,16 +36,18 @@ const registerController = async (req, res) => {
       password: hashedPassword,
       email: email,
     });
-    await newUser.save();
+    // await newUser.save();
 
-    // Return token
-    const accessToken = signAccessToken({ userID: user._id, role: user.role });
+    const accessToken = await signAccessToken({ userID: newUser._id, role: newUser.role });
 
-    res.json({
+    return res.status(201).json({
       success: true,
-      messeage: "User created successfully",
+      user: [newUser.username, newUser.email],
+      message: "User created successfully",
       accessToken: accessToken,
     });
+
+
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -56,12 +58,12 @@ const registerController = async (req, res) => {
 };
 
 const loginController = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, password } = req.body;
   // Simble validation
-  if (!username || !password || !email)
+  if (!username || !password)
     return res.status(400).json({
       success: false,
-      messeage: "Missing username and/or password and/or email",
+      message: "Missing username and/or password and/or email",
     });
   try {
     const user = await User.findOne({ username });
@@ -87,7 +89,7 @@ const loginController = async (req, res) => {
 
     res.json({
       success: true,
-      messeage: "Login successfully",
+      message: "Login successfully",
       accessToken: accessToken,
     });
   } catch (error) {
