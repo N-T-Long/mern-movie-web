@@ -18,6 +18,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliM
 {
     "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 4",
     "other_name" : "Larva Pendant",
+    "name_URL": "au-trung-lava-mat-day-chuyen-4",
     "likes" : 0,
     "views" : 1,
     "type" : "Phim lẻ",
@@ -42,7 +43,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliM
 
 
 ### Delete movie
-DELETE http://localhost:5000/api/admin/movies/629be27a2f6f023db693b9a9/delete
+DELETE http://localhost:5000/api/admin/movies/629cecd4362d79d709979e5f/delete
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjg4MjR9.TXy1JdtBPx8zm0-ZDJI_z2KpRQfPe9ld2VwGXIM_aZA
 ###
@@ -176,9 +177,9 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "long10",
-    "password": "PhamHoa290417",
-    "email": "nguyenthanhlong10@gmail.com"
+    "username": "bachga1",
+    "password": "bachga1",
+    "email": "bachga1"
 }
 ###
 
@@ -188,8 +189,8 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "nguyenthanhlong@gmail.com",
-    "password": "PhamHoa290417"
+    "username": "bachga",
+    "password": "bachga"
 }
 ###
 
@@ -198,6 +199,10 @@ Content-Type: application/json
 #####################################################################################################################################################################################################################################################################
 ### Public
 
+
+### GET all movie
+GET http://localhost:5000/api/movies/629cf327ee4b34c758ceda7b
+###
 
 ### GET all movie
 GET http://localhost:5000/api/movies
@@ -220,6 +225,11 @@ GET http://localhost:5000/api/genres
 ###
 GET http://localhost:5000/api/movies?page=2&limit=2
 ###
+
+###
+PATCH http://localhost:5000/api/movies/629cf327ee4b34c758ceda7b/newView
+###
+
 
 ###########################################################################################################################################################################################################################################################################################################################################################################
 ### USER API

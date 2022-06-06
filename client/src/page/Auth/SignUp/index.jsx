@@ -8,7 +8,6 @@ import authApi from "../../../api/authApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
-
 function SignUp(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -19,24 +18,27 @@ function SignUp(props) {
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
 
     const handleRegister = (data) => {
+        data.preventDefault();
         dispatch(authApi.signUp(data.username, data.email, data.password));
     };
     const handleError = (errors) => { };
 
     const auth = useSelector((state) => state.auth)
+    if (auth.authenticate) {
 
+    }
     //validation signup
     const USER_REGEX = /^\[A-z\][A-z0-9-_]{3,23}$/;
     const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
-    const handleSignUp = async (e) => {
-        if (email === "" || password === "" || username === "" || repeatPassword === "") {
-            e.preventDefault();
-        } else {
-            console.log(username, email, password);
-            dispatch(authApi.signUp(username, email, password));
-        }
-    }
+    // const handleSignUp = async (e) => {
+    //     if (email === "" || password === "" || username === "" || repeatPassword === "") {
+    //         e.preventDefault();
+    //     } else {
+    //         console.log(username, email, password);
+    //         dispatch(authApi.signUp(username, email, password));
+    //     }
+    // }
 
     const registerOptions = {
         username: { required: "Username is required" },
@@ -112,8 +114,8 @@ function SignUp(props) {
                 </Form>
                 <p className="p-signup">
                     Bạn đã có tài khoản?
-                    <Link to="/dang-nhap" style={{color: "#ffbb00", marginLeft: "10px"}}>
-                            Đăng nhập
+                    <Link to="/dang-nhap" style={{ color: "#ffbb00", marginLeft: "10px" }}>
+                        Đăng nhập
                     </Link>
                 </p>
             </div>

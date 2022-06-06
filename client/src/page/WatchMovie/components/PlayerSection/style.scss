@@ -1,0 +1,118 @@
+.player-section{
+    padding-top: 50px;
+
+    .show {
+        display: block;
+    }
+
+    .hiden {
+        display: none;
+    }
+
+    .movie-detail{
+
+
+        .movie-detail-left {
+            .movie-image{
+                width: 100%;
+                border-radius: 10px;
+            }
+        }
+
+        .movie-detail-right {
+            .movie-detail-info{
+                .movie-name {
+                    color: #ff8040;
+
+                }
+
+                .movie-other_name{
+
+                }
+
+                .detail-info-popular {
+                    .detail-info-like, .detail-info-view{
+                        i {
+                            color: #ffbb00;
+                            font-size: 20px;
+                            margin-right: 10px;
+                        }
+
+                        span {
+                            font-size: 20px;
+                            color: #8c8c8c;
+                        }
+                    }
+                }
+
+                
+            }
+
+            .bth-play {
+                display: inline-block;
+                height: 50px;
+                width: 150px;
+                background-color: transparent;
+                color: #ffbb00;
+                border: solid #ffbb00 2px;
+                border-radius: 7px;
+                text-justify: center;
+                margin: 10px 0;
+
+                font-size: 1.5rem;
+                i{
+                    font-size: 1.5rem;
+                    margin-right: 10px;
+                }
+            }
+
+            .bth-play:hover {
+                background-color: #ffbb00;
+                color: #fff;
+            }
+
+            
+
+
+            .movie-des {
+                font-size: 15px;
+                font-weight: 520;
+            }
+
+            .more-info {
+                font-size: 15px;
+
+                span {
+                    color: #8c8c8c;
+                }
+            }
+
+            .rating-movie {
+                margin-top: 30px;
+                
+                display: flex;
+                
+                h4 {
+                    margin-right: 20px;
+                }
+
+                i {
+                    
+                    color: #ffbb00;
+                    font-size: 20px;
+                }
+            }
+
+            .liking-movie {
+                button {
+                    width: 100px;
+                    height: 40px;
+                    font-size: 20px;
+                    border-radius: 5px;
+                    background-color: #fac533;
+                }
+            }
+        }
+
+    }
+}

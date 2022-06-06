@@ -21,6 +21,14 @@ const publicApi = {
     let url = "/countries";
     return axiosClient.get(url, { params });
   },
+  getMovie: (movieID, params) => {
+    let url = `/movies/${movieID}`;
+    return axiosClient.get(url, { params });
+  },
+  updateViews: (movieID, params) => {
+    let url = `/movies/${movieID}/newView`;
+    return axiosClient.patch(url, { params });
+  },
 };
 
 export default publicApi;

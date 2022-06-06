@@ -124,6 +124,7 @@ const createNewMovie = async (req, res) => {
   const {
     name,
     other_name,
+    name_URL,
     likes,
     views,
     director,
@@ -153,6 +154,7 @@ const createNewMovie = async (req, res) => {
     const newMovie = new Movie({
       name,
       other_name,
+      name_URL,
       likes,
       views,
       director,

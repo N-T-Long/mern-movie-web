@@ -1,5 +1,28 @@
 const { Movie, Slide, Genre, Country } = require("../models/index");
 
+const getMovieByID = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.movieID);
+    if (!movie)
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found!!!",
+      });
+    return res.status(200).json({
+      success: true,
+      message: "Get movie success!",
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Get movie success!",
+      movie,
+    });
+  }
+};
+
 const getAllMovies = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 9;
@@ -105,10 +128,34 @@ const getAllGenreTest = async (req, res) => {
   // }
 };
 
+const patchAddNewView = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.movieID);
+    if (!movie)
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found!!!",
+      });
+    let newViews = movie.views + 1;
+    await Movie.findByIdAndUpdate(req.params.movieID, { views: newViews });
+    return res.status(200).json({
+      success: true,
+      messeage: "Add new views success!",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      messeage: "Internal server error!!!",
+    });
+  }
+};
 module.exports = {
+  getMovieByID,
   getAllMovies,
   getAllGenre,
   getAllCountry,
   getALlSlide,
   getAllGenreTest,
+  patchAddNewView,
 };

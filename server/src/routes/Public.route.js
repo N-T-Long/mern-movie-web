@@ -1,12 +1,19 @@
 const express = require("express");
 const route = express.Router();
 const {
+  getMovieByID,
   getAllMovies,
   getAllGenre,
   getAllCountry,
   getALlSlide,
   getAllGenreTest,
+  patchAddNewView,
 } = require("../controllers/Public.controller");
+
+// @Router GET /api/movies/:movieID
+// @desc Get  movies by id
+// @access public
+route.get("/movies/:movieID", getMovieByID);
 
 // @Router GET /api/movies
 // @desc Get all movies
@@ -37,4 +44,10 @@ route.get("/countries", getAllCountry);
 // @desc Get all genres
 // @access public
 route.get("/genres/test", getAllGenreTest);
+
+// @Router PATCH /api//movies/:movieID/newView
+// @desc add new view
+// @access public
+route.patch("/movies/:movieID/newView", patchAddNewView);
+
 module.exports = route;

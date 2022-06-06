@@ -1,8 +1,10 @@
 import axiosClient from "./axiosClient";
 import { authConstants, userConstants } from "./constants";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 const authApi = {
   signUp: (username, email, password) => {
+    let Navigate = useNavigate();
     return async (dispatch) => {
       try {
         dispatch({ type: authConstants.LOGIN_REQUEST });
@@ -12,25 +14,28 @@ const authApi = {
           password,
         });
         console.log(res);
-        if (res.status === 201) {
-          const { token, user } = res.data;
-          localStorage.setItem("token", token);
+        if (res.success === true) {
+          const { accessToken, user } = res;
+          localStorage.setItem("token", accessToken);
           localStorage.setItem("user", JSON.stringify(user));
           dispatch({
             type: authConstants.LOGIN_SUCCESS,
             payload: {
-              token,
-              user,
+              token: accessToken,
+              user: user,
             },
           });
-          return <Navigate to={`/`} />;
+          console.log("true");
+          Navigate("/");
         } else {
+          console.log("asdsad");
           dispatch({
             type: authConstants.LOGIN_FAILURE,
             payload: { error: res.data.message },
           });
         }
       } catch (err) {
+        console.log(err);
         dispatch({
           type: authConstants.LOGIN_FAILURE,
           payload: { error: null },
@@ -47,7 +52,8 @@ const authApi = {
           password,
         });
         console.log(res);
-        if (res.status === 200) {
+
+        if (res.status === 201) {
           const { token, user } = res.data;
           localStorage.setItem("token", token);
           localStorage.setItem("user", JSON.stringify(user));
@@ -58,7 +64,8 @@ const authApi = {
               user,
             },
           });
-          return <Navigate to={`/`} />;
+          const navigate = useNavigate();
+          return navigate("/");
         } else {
           dispatch({
             type: authConstants.LOGIN_FAILURE,

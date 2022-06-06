@@ -9,14 +9,6 @@ Movie.propTypes = {
   
 };
 
-const movie_example = {
-  name: "Công tố viên chuyển sinh",
-  other_name: "Again my life",
-  views: "100000",
-  rate: 9,
-  episode: ["full"],
-  URL_image: "https://static.247phim.com/164682/conversions/6256b0c0e4be2_Again-My-Life-%282022%29-190_274.jpg",
-}
 
 function change_view(views) {
   let result = 0;
@@ -36,12 +28,10 @@ function change_view(views) {
 
 
 function Movie(props) {
-  console.log(props.movie);
 
-  console.log(props.movie);
   return (
     <div className="movie col-lg-3 col-md-4 col-sm-4 col-6">
-      <a className="movie-url" href="https://247phim.com/xemphim/cong-to-vien-chuyen-sinh-23918">
+      <Link className="movie-url" to={`xem-phim/${props.movie.name_URL}`}>
         <div className="img-4-6">
           <div className="inline">
             <img src={props.movie.URL_image} alt={props.movie.other_name}/>
@@ -54,7 +44,7 @@ function Movie(props) {
         <div className="func row">
           <div className="col-6 views">
             <i className="bi bi-eye-fill"/>
-            <a href="#">{change_view(props.movie.view)}</a>
+            <a>{change_view(props.movie.view)}</a>
           </div>
           <div className="col-6 rate">
           
@@ -66,7 +56,7 @@ function Movie(props) {
 
           </div>
         </div>
-      </a> 
+      </Link> 
 
 
 

@@ -7,27 +7,26 @@ import NotFound from "../page/NotFound";
 import SignIn from "../page/Auth/SignIn";
 import SignUp from "../page/Auth/SignUp";
 import Admin from "../page/Admin";
-const PublicRoutes = () => {
-  return (
-    <Routes>
-      <Route exact path="/" element={<Home />} />
-      <Route path="/xem-phim" element={<WatchMovie />} />
-      <Route path="/tim-kiem" element={<Search />} />
-      <Route path="/dang-ky" element={<SignUp />} />
-      <Route path="/dang-nhap" element={<SignIn />} />
-      <Route path="/tai-khoan" element={<Profile />} />
-      <Route path="/*" element={<NotFound />} />
-    </Routes>
-  );
-};
+const PublicRoutes = [
+  { path: "/", component: Home },
+  { path: "/xem-phim/", component: WatchMovie },
+  { path: "/tim-kiem", component: Search },
+  { path: "dang-ky", component: SignUp },
+  { path: "dang-nhap", component: SignIn },
+  { path: "tai-khoan", component: Profile },
+  { path: "/*", component: NotFound },
+];
 
-const PrivateRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/admin" element={<Admin />} />;
-    </Routes>
-  );
-};
-export default PublicRoutes;
+// <Route exact path="/" element={<Home />} />
+// <Route path="/xem-phim" element={<WatchMovie />} />
+// <Route path="/tim-kiem" element={<Search />} />
+// <Route path="/dang-ky" element={<SignUp />} />
+// <Route path="/dang-nhap" element={<SignIn />} />
+// <Route path="/tai-khoan" element={<Profile />} />
+// <Route path="/*" element={<NotFound />} />
 
-export { PrivateRoutes };
+const PrivateRoutes = [{ path: "/admin", component: Admin }];
+
+// <Route path="/admin" element={<Admin />} />;
+
+export { PrivateRoutes, PublicRoutes };
