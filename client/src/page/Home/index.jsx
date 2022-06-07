@@ -44,10 +44,6 @@ function Home(props) {
                 <Container >
                     <Row>
                         <Col  sm={8} >
-                            <div className="title-cate">
-                                <a >Phim lẻ</a>
-                                <a>Xem thêm</a>
-                            </div>
                             <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
                         </Col>
                         <div className="col-sm-4 col-12 mt-2">

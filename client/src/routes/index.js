@@ -9,21 +9,13 @@ import SignUp from "../page/Auth/SignUp";
 import Admin from "../page/Admin";
 const PublicRoutes = [
   { path: "/", component: Home },
-  { path: "/xem-phim/", component: WatchMovie },
+  { path: "/xem-phim/:movie_url", component: WatchMovie },
   { path: "/tim-kiem", component: Search },
   { path: "dang-ky", component: SignUp },
   { path: "dang-nhap", component: SignIn },
   { path: "tai-khoan", component: Profile },
   { path: "/*", component: NotFound },
 ];
-
-// <Route exact path="/" element={<Home />} />
-// <Route path="/xem-phim" element={<WatchMovie />} />
-// <Route path="/tim-kiem" element={<Search />} />
-// <Route path="/dang-ky" element={<SignUp />} />
-// <Route path="/dang-nhap" element={<SignIn />} />
-// <Route path="/tai-khoan" element={<Profile />} />
-// <Route path="/*" element={<NotFound />} />
 
 const PrivateRoutes = [{ path: "/admin", component: Admin }];
 

@@ -1,9 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom"
-import {Link} from "react-router-dom"
 import PropTypes from "prop-types";
+import React from "react";
+import { Link } from "react-router-dom";
 import "./style.scss";
-import { propTypes } from "react-bootstrap/esm/Image";
+import { useDispatch} from "react-redux"
+import {isSelected} from "../../../redux-toolkit/slice/movie"
+
 Movie.propTypes = {
   movie : PropTypes.object
   
@@ -28,10 +29,16 @@ function change_view(views) {
 
 
 function Movie(props) {
+  const dispatch = useDispatch();
+
+  const handleOpenMovie =() => {
+    const action = isSelected(props.movie._id);
+    dispatch(action)
+  }
 
   return (
     <div className="movie col-lg-3 col-md-4 col-sm-4 col-6">
-      <Link className="movie-url" to={`xem-phim/${props.movie.name_URL}`}>
+      <Link className="movie-url" to={`xem-phim/${props.movie.name_URL}`} onClick={handleOpenMovie}>
         <div className="img-4-6">
           <div className="inline">
             <img src={props.movie.URL_image} alt={props.movie.other_name}/>

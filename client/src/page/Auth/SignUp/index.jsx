@@ -4,7 +4,6 @@ import "./style.scss";
 import { Navigate, useNavigate, Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import authApi from "../../../api/authApi";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -18,8 +17,8 @@ function SignUp(props) {
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
 
     const handleRegister = (data) => {
-        data.preventDefault();
-        dispatch(authApi.signUp(data.username, data.email, data.password));
+        // data.preventDefault();
+        // dispatch(authApi.signUp(data.username, data.email, data.password));
     };
     const handleError = (errors) => { };
 

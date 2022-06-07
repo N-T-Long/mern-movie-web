@@ -15,7 +15,7 @@ const UserSchema = new Schema({
   name: {
     firstname: String,
     lastname: String,
-    default: "",
+    default: {},
   },
   gender: {
     type: String,

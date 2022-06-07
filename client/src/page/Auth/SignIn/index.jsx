@@ -1,52 +1,72 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import "./style.css";
-import { Navigate, useNavigate } from "react-router-dom";
-import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import authApi from "../../../api/authApi";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import userApi from "../../../api/userApi";
+import { signIn } from "../../../redux-toolkit/slice/auth";
+import "./style.css";
 
 function SignIn(props) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [token, setToken] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" });
     const handleError = (errors) => { };
-
     const auth = useSelector((state) => state.auth);
 
 
     const handleLogin = (data) => {
-        dispatch(authApi.signIn(data.username, data.password));
+        const getToken = async (data) => {
+            try {
+              const response = await userApi.signIn({
+                username: data.username,
+                password: data.password,
+              });
+              if (response.accessToken) 
+              {
+                window.localStorage.setItem("token", response.accessToken)
+                const userInfo =  await userApi.getProfile();
+                const action = signIn({...userInfo.user, token: response.accessToken });
+                dispatch(action)
+              }
 
+
+            } catch (error) {
+              console.log("Falsed to fetch movie list", error);
+            }
+          };
+        getToken(data);
+        
     };
+
+
     const signInOptions = {
         username: { required: "Username is required" },
-        password: {
-            required: "Password is required",
-        }
+        password: { required: "Password is required"}
     };
+
     useEffect(() => {
         if (auth.authenticate) {
-            setTimeout(() => {
                 navigate("/")
-            }, 1000);
         }
-    }, [dispatch, auth.authenticate]);
+    }, [auth.authenticate]);
+
 
     return (
         <>
-            {auth.authenticate === true ? (
-                <p> Đăng nhập thành công</p>
+            {auth.authenticate ? (
+                alert("Đăng nhập thành công!!")
+                
             ) : null}
             <small className="text-danger">
                 {auth?.error && auth.error.message}
             </small>
+
+
             <div className="form-auth">
                 <h1 className="form-title">Đăng nhập</h1>
                 <Form className="my-4">

@@ -23,6 +23,29 @@ const getMovieByID = async (req, res) => {
   }
 };
 
+const getMovieByURL = async (req, res) => {
+  try {
+    const movie = await Movie.findOne({ name_URL: req.params.movieURL });
+    if (!movie)
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found!!!",
+      });
+    return res.status(200).json({
+      success: true,
+      message: "Get movie success!",
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Get movie success!",
+      movie,
+    });
+  }
+};
+
 const getAllMovies = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 9;
@@ -152,6 +175,7 @@ const patchAddNewView = async (req, res) => {
 };
 module.exports = {
   getMovieByID,
+  getMovieByURL,
   getAllMovies,
   getAllGenre,
   getAllCountry,

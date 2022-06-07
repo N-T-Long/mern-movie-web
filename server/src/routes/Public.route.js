@@ -8,12 +8,18 @@ const {
   getALlSlide,
   getAllGenreTest,
   patchAddNewView,
+  getMovieByURL,
 } = require("../controllers/Public.controller");
 
 // @Router GET /api/movies/:movieID
 // @desc Get  movies by id
 // @access public
 route.get("/movies/:movieID", getMovieByID);
+
+// @Router GET /api/movies/:movieURL
+// @desc Get  movies by movieURL
+// @access public
+route.get("/movies/url/:movieURL", getMovieByURL);
 
 // @Router GET /api/movies
 // @desc Get all movies

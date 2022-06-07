@@ -9,6 +9,10 @@ const publicApi = {
     let url = "/movies";
     return axiosClient.get(url, { params });
   },
+  getMovieByURL: (movieURL, params) => {
+    let url = `/movies/url/${movieURL}`;
+    return axiosClient.get(url, { params });
+  },
   getSlides: (params) => {
     let url = "/slides";
     return axiosClient.get(url, { params });

@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Nav, Navbar, NavDropdown, Form, FormControl, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from "react-router-dom";
 import logo from "../../../access/img/logo.svg";
 import publicApi from "../../../api/publicApi";
+import { signOut } from "../../../redux-toolkit/slice/auth"
 import "./style.scss";
-import authApi from '../../../api/authApi';
-import { useDispatch } from "react-redux";
+
 
 function Header(props) {
     const [genres, setGenres] = useState([]);
-    const [categories, setCategories] = useState([]);
     const [countries, setCountries] = useState([]);
-    const { user: currentUser } = useSelector((state) => state.auth)
-    const [logout, setLogOut] = useState(false);
     const dispatch = useDispatch();
-    console.log(currentUser)
+    const isAuthenticate = useSelector(state => state.auth.authenticate)
+    const username = useSelector(state => state.auth.user.username)
+
     useEffect(() => {
         const fetchCountries = async () => {
             try {
@@ -28,17 +27,6 @@ function Header(props) {
         fetchCountries();
     }, []);
 
-    useEffect(() => {
-        const fetchCategories = async () => {
-            try {
-                const response = await publicApi.getCategories();
-                setCategories(response.categories);
-            } catch (error) {
-                console.log("Falsed to fetch categories list", error);
-            }
-        }
-        fetchCategories();
-    }, []);
 
     useEffect(() => {
         const fetchGenres = async () => {
@@ -54,15 +42,21 @@ function Header(props) {
 
     }, []);
     const years = [2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015];
+    const phimBo = [
+        {name: "Phim bộ Anh", name_URL: "anh"},
+        {name: "Phim bộ Hàn Quốc", name_URL: "han-quoc"},
+        {name: "Phim bộ Mỹ", name_URL: "my"},
+        {name: "Phim bộ Trung Quốc", name_URL: "trung-quoc"},
+        {name: "Anime", name_URL: "anime"},
+        {name: "Gameshow", name_URL: "gameshow"},
+        {name: "TV Shows", name_URL: "tv-shows"},
+        {name: "Clip ngắn", name_URL: "clip-ngan"},
+        
+    ]
 
     const handleUserLogout = () => {
-        try {
-            const token = localStorage.getItem("token");
-            console.log(token)
-            authApi.signout();
-        } catch (error) {
-            console.log(error)
-        }
+        const action = signOut();
+        dispatch(action)
     }
 
     return (
@@ -93,9 +87,9 @@ function Header(props) {
                     </NavDropdown>
                     <NavDropdown title="Phim bộ" id="phimbo-dropdown" className="nav-dropdown-item">
                         {
-                            years.map(
+                            phimBo.map(
                                 (item, index) => {
-                                    return <Link to={`/phim-le/${item}`} key={index} className="dropdown-item">{item}</Link>
+                                    return <Link to={`/phim-bo/${item.name_URL}`} key={index} className="dropdown-item">{item.name}</Link>
                                 }
 
                             )
@@ -130,24 +124,21 @@ function Header(props) {
                     <Button variant="outline-success">Search</Button>
                 </Form>
                 <Nav className="me-auto">
-                    {currentUser.username ? (
-                        <div className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <Link to={"/profile"} className="nav-link">
-                                    {currentUser.username}
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <a href="/" className="nav-link" onClick={handleUserLogout()}>
-                                    LogOut
-                                </a>
-                            </li>
-                        </div>
-                    ) :
-                        <NavDropdown menuVariant="dark" title="Tài khoản" id="account-dropdown" className=" nav-item">
-                            <Link to={"/dang-nhap"} className="dropdown-item">Đăng nhập</Link>
-                            <Link to={"/dang-ky"} className="dropdown-item">Đăng ký</Link>
+                    
+                    {
+                     isAuthenticate ?
+                     (
+
+                        <NavDropdown menuVariant="dark" title={username} id="account-dropdown" className=" nav-item">
+                            <Link to="/tai-khoan" className="dropdown-item">Tài khoản</Link>
+                            <Link to="/" className="dropdown-item" onClick={handleUserLogout}>Đăng xuất</Link>
                         </NavDropdown>
+                     )
+                    :
+                        (<NavDropdown menuVariant="dark" title="Tài khoản" id="account-dropdown" className=" nav-item">
+                            <Link to="/dang-nhap" className="dropdown-item">Đăng nhập</Link>
+                            <Link to="/dang-ky" className="dropdown-item">Đăng ký</Link>
+                        </NavDropdown>)
                     }
                 </Nav>
             </Navbar.Collapse>

@@ -15,6 +15,9 @@ function MovieList(props) {
 
     return (
         <div className='movie-list'>
+             <div className="title-cate">
+                <a >{props.movieListTitle}</a>
+            </div>
             <div className="movies row">
                 {
                     props.movieList && props.movieList.map((movie, index) =>{
