@@ -1,9 +1,13 @@
-import authReducer from "./auth";
 import movieReducer from "./movie";
+import authReducer from "./auth";
+import publicReducer from "./public";
+import adminReducer from "./admin";
 
 const rootReducer = {
-  auth: authReducer,
   movie: movieReducer,
+  auth: authReducer,
+  admin: adminReducer,
+  public: publicReducer,
 };
 
 export default rootReducer;

@@ -10,7 +10,7 @@ const {
   createCategory,
   createNewEpisode,
   createNewMovie,
-  createNewSlice,
+  createNewSlide,
   createNewGenre,
   createNewCountry,
   deleteMovie,
@@ -92,6 +92,9 @@ route.patch(
   createNewEpisode
 );
 
+/////////////////////////////////////////////////////////////////////////////////
+// Another routes
+
 // @Router GET /api/admin/slides
 // @desc Get all slide
 // @access private
@@ -104,7 +107,7 @@ route.post(
   "/slides/create",
   verifyAccessToken,
   authPage(["admin"]),
-  createNewSlice
+  createNewSlide
 );
 
 // @Router POST /api/admin/genres/create

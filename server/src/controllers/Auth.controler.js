@@ -10,44 +10,46 @@ const registerController = async (req, res) => {
 
   // Simble validation
   if (!username || !password || !email)
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       message: "Missing username and/or password and/or email",
     });
+
   try {
     // Check for existing user
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username: username });
     if (user)
       return res
-        .status(400)
+        .status(200)
         .json({ success: false, messeage: "Username already taken" });
     // Check for existing email
     const user2 = await User.findOne({ email });
     if (user2)
       return res
-        .status(400)
+        .status(200)
         .json({ success: false, messeage: "Email already taken" });
 
     // All good
 
     const hashedPassword = await argon2.hash(password);
     const newUser = new User({
-      username,
+      username: username,
       password: hashedPassword,
       email: email,
     });
-    // await newUser.save();
+    await newUser.save();
 
-    const accessToken = await signAccessToken({ userID: newUser._id, role: newUser.role });
-
-    return res.status(201).json({
-      success: true,
-      user: [newUser.username, newUser.email],
-      message: "User created successfully",
-      accessToken: accessToken,
+    const accessToken = await signAccessToken({
+      userID: newUser._id,
+      role: newUser.role,
     });
 
-
+    return res.status(200).json({
+      success: true,
+      message: "User created successfully",
+      accessToken: accessToken,
+      newUser,
+    });
   } catch (error) {
     res.status(500).json({
       success: false,
@@ -61,22 +63,22 @@ const loginController = async (req, res) => {
   const { username, password } = req.body;
   // Simble validation
   if (!username || !password)
-    return res.status(400).json({
+    return res.status(200).json({
       success: false,
       message: "Missing username and/or password and/or email",
     });
   try {
     const user = await User.findOne({ username });
     if (!user)
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
-        message: "Incorrect username or password",
+        message: "Incorrect username",
       });
 
     // Username found
     const passwordValid = await argon2.verify(user.password, password);
     if (!passwordValid)
-      return res.status(400).json({
+      return res.status(200).json({
         success: false,
         message: "Incorrect username or password",
       });
@@ -87,7 +89,7 @@ const loginController = async (req, res) => {
       role: user.role,
     });
 
-    res.json({
+    res.status(200).json({
       success: true,
       message: "Login successfully",
       accessToken: accessToken,

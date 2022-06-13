@@ -1,6 +1,5 @@
 import axios from "axios";
 import queryString from "query-string";
-import { authConstants } from "./constants";
 
 const axiosClient = axios.create({
   baseURL: process.env.REACT_APP_API_URL,

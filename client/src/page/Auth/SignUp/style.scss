@@ -5,10 +5,18 @@
     min-height: 400px;
     min-width: 350px;
     max-width: 450px;
+    width: 450px;
     width: auto;
     text-align: center;
-    margin-top: 100px;
+    margin: 100px auto;
+    padding: 40px;
 }
+
+.form-body {
+    text-align: left;
+    padding: 20px 10px;
+}
+
 
 .text-input{
     width: 100%;

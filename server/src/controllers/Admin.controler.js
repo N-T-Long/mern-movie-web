@@ -181,7 +181,7 @@ const createNewMovie = async (req, res) => {
   }
 };
 
-const createNewSlice = async (req, res) => {
+const createNewSlide = async (req, res) => {
   const { URL_image, URL_movie, name, other_name } = req.body;
   if (!URL_image) {
     return res.status(401).json({
@@ -426,7 +426,7 @@ module.exports = {
   patchLockedUser,
   patchRemovedUser,
   updateMovie,
-  createNewSlice,
+  createNewSlide,
   getALlSlides,
   createNewGenre,
   getAllGenre,

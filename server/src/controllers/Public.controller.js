@@ -1,82 +1,31 @@
 const { Movie, Slide, Genre, Country } = require("../models/index");
 
-const getMovieByID = async (req, res) => {
-  try {
-    const movie = await Movie.findById(req.params.movieID);
-    if (!movie)
-      return res.status(404).json({
-        success: false,
-        message: "Movie not found!!!",
-      });
-    return res.status(200).json({
-      success: true,
-      message: "Get movie success!",
-      movie,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Get movie success!",
-      movie,
-    });
-  }
-};
-
-const getMovieByURL = async (req, res) => {
-  try {
-    const movie = await Movie.findOne({ name_URL: req.params.movieURL });
-    if (!movie)
-      return res.status(404).json({
-        success: false,
-        message: "Movie not found!!!",
-      });
-    return res.status(200).json({
-      success: true,
-      message: "Get movie success!",
-      movie,
-    });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Get movie success!",
-      movie,
-    });
-  }
-};
-
+// fetch movie with full query
 const getAllMovies = async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 9;
-  const valueQuery = req.query.q || "";
   try {
-    const movies = await Movie.find({
-      name: { $regex: ".*" + valueQuery + ".*" },
-    })
-      .skip((page - 1) * limit)
-      .limit(limit);
-    // .exec((err, doc) => {
-    //   if (err) {
-    //     return res.json(err);
-    //   } else {
-    //     return res.json({
-    //       total: doc.total,
-    //       page: page,
-    //       pageSize: limit,
-    //       movies: doc,
-    //     });
-    //   }
-    // });
+    console.log(req.body);
+    const { _page, _limit } = req.query;
+    const paginate = {
+      _page: _page ? parseInt(_page) : 1,
+      _limit: _page ? parseInt(_limit) : 24,
+    };
 
-    // if (movies)
-    //   return res.status(200).json({
-    //     success: false,
-    //     total: Movie.count(),
-    //   });
+    //const movies = await Movie.find();
+
+    const movies = await Movie.find(req.body)
+      .skip((paginate._page - 1) * paginate._limit)
+      .limit(paginate._limit);
+
+    if (!movies)
+      return res.status(200).json({
+        success: false,
+      });
+
+    const newPaginate = { ...paginate, total_docs: movies.length };
     return res.status(200).json({
       success: true,
       movies,
+      newPaginate,
     });
   } catch (error) {
     console.log(error);
@@ -87,12 +36,121 @@ const getAllMovies = async (req, res) => {
   }
 };
 
+const getMovieByID = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.movieID).populate({
+      path: "comments",
+      populate: {
+        path: "user",
+        select: "username URL_avatar",
+      },
+    });
+
+    if (!movie)
+      return res.status(404).json({
+        success: false,
+        message: "Movie not found!!!",
+      });
+    return res.status(200).json({
+      success: true,
+      message: "Get movie success!",
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      error,
+    });
+  }
+};
+
+const getMovieByURL = async (req, res) => {
+  try {
+    const movie = await Movie.findOne({
+      name_URL: req.params.movieURL,
+    })
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "username URL_avatar",
+        },
+      })
+      .populate({
+        path: "genres",
+        select: "name",
+      });
+
+    if (!movie)
+      return res.status(200).json({
+        success: false,
+        message: "Movie not found!!!",
+      });
+    return res.status(200).json({
+      success: true,
+      message: "Get movie success!",
+      movie,
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      success: false,
+      message: "Get movie success!",
+      movie,
+    });
+  }
+};
+
+// const getAllMovies = async (req, res) => {
+//   const page = parseInt(req.query.page) || 1;
+//   const limit = parseInt(req.query.limit) || 9;
+//   const sort  = parse
+//   const valueQuery = req.query.q || "";
+//   try {
+//     const movies = await Movie.find({
+//       name: { $regex: ".*" + valueQuery + ".*" },
+//     })
+//       .skip((page - 1) * limit)
+//       .limit(limit);
+//     // .exec((err, doc) => {
+//     //   if (err) {
+//     //     return res.json(err);
+//     //   } else {
+//     //     return res.json({
+//     //       total: doc.total,
+//     //       page: page,
+//     //       pageSize: limit,
+//     //       movies: doc,
+//     //     });
+//     //   }
+//     // });
+
+//     // if (movies)
+//     //   return res.status(200).json({
+//     //     success: false,
+//     //     total: Movie.count(),
+//     //   });
+//     return res.status(200).json({
+//       success: true,
+//       movies,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({
+//       success: false,
+//       message: "Internal server error",
+//     });
+//   }
+// };
+
 const getAllGenre = async (req, res) => {
   try {
     const genres = await Genre.find();
     return res.status(200).json({
       success: true,
       genres,
+      query: req.query,
     });
   } catch (error) {
     console.log(error);
@@ -155,15 +213,20 @@ const patchAddNewView = async (req, res) => {
   try {
     const movie = await Movie.findById(req.params.movieID);
     if (!movie)
-      return res.status(404).json({
+      return res.status(200).json({
         success: false,
         message: "Movie not found!!!",
       });
     let newViews = movie.views + 1;
-    await Movie.findByIdAndUpdate(req.params.movieID, { views: newViews });
+
+    await Movie.findByIdAndUpdate(req.params.movieID, {
+      views: newViews,
+    });
+    const movieUpdated = await Movie.findById(req.params.movieID);
     return res.status(200).json({
       success: true,
       messeage: "Add new views success!",
+      movieUpdated,
     });
   } catch (error) {
     console.log(error);
@@ -173,6 +236,7 @@ const patchAddNewView = async (req, res) => {
     });
   }
 };
+
 module.exports = {
   getMovieByID,
   getMovieByURL,

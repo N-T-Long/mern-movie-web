@@ -1,37 +1,37 @@
 import axiosClient from "./axiosClient";
 
 const publicApi = {
-  getCategories: (params) => {
+  getCategories: () => {
     let url = "/categories";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
   getMovies: (params) => {
     let url = "/movies";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url, params);
   },
-  getMovieByURL: (movieURL, params) => {
+  getMovieByURL: (movieURL) => {
     let url = `/movies/url/${movieURL}`;
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
-  getSlides: (params) => {
+  getSlides: () => {
     let url = "/slides";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
-  getGenres: (params) => {
+  getGenres: () => {
     let url = "/genres";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
-  getCountries: (params) => {
+  getCountries: () => {
     let url = "/countries";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
-  getMovie: (movieID, params) => {
+  getMovie: (movieID) => {
     let url = `/movies/${movieID}`;
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
-  updateViews: (movieID, params) => {
+  updateViews: (movieID) => {
     let url = `/movies/${movieID}/newView`;
-    return axiosClient.patch(url, { params });
+    return axiosClient.patch(url);
   },
 };
 

@@ -1,13 +1,13 @@
 import axiosClient from "./axiosClient";
 
 const userApi = {
-  getProfile: (params) => {
+  getProfile: () => {
     const url = "/user/profile";
-    return axiosClient.get(url, { params });
+    return axiosClient.get(url);
   },
-  signIn: (data) => {
-    const url = "/auth/login";
-    return axiosClient.post(url, data);
+  addNewComment: (data) => {
+    const url = `/user/movies/${data.movieID}/comment/new`;
+    return axiosClient.patch(url, { body: data.content });
   },
 };
 

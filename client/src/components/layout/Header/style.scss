@@ -32,21 +32,26 @@
     font-size: 16px;
 }
 
-.nav-dropdown-item:hover {
+.main-menu .nav-dropdown-item:hover {
     background-color: #FEbb00;
     border-radius: 3px;
     color: #000;
     z-index: 4;
 }
 
-.nav-dropdown-item:visited {
+.main-menu .nav-dropdown-item:hover {
     background-color: #FEbb00;
     border-radius: 3px;
     color: #000;
     z-index: 4;
+
+    & .dropdown-menu {
+      display: block;  
+    }
 }
 
 .main-menu .dropdown-menu {
+    margin-top: -1px;
     min-width: 600px;
 }
 
@@ -66,8 +71,14 @@
     font-size: 1rem;
     color: #fff;
 
-    & a:hover{
-        color: #000;
+    &:hover{
+        color: #ffbe00;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: #ffbe00;
+        background-color: transparent;
     }
     
 }
@@ -76,4 +87,69 @@
     min-width: 40px;
     align-items: center;
     text-align: center;
+}
+
+.search-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 2px  #bbbbbb; 
+    border-radius: 0;   
+    margin: 0;
+    padding: 0;
+
+    &:focus {
+        background-color: transparent;
+        border: none;
+        border-bottom: solid 2px #bbbbbb; 
+        border-radius: 0; 
+        box-shadow: unset;
+        color: rgb(255, 255, 255);
+    }
+}
+.form-search{
+    margin-right: 30px;
+}
+.search-submit{
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 2px  #bbbbbb; 
+    border-radius: 0;   
+    margin: 0;
+    
+    color: #febb00;
+
+
+    &:focus {
+        background-color: transparent;
+        border: none;
+        border-bottom: solid 2px #bbbbbb; 
+        border-radius: 0; 
+        box-shadow: unset;
+        color: rgb(255, 255, 255);
+    }
+
+    &:hover {
+        background-color: transparent;
+        border: none;
+        border-bottom: solid 2px #bbbbbb; 
+        border-radius: 0; 
+        box-shadow: unset;
+        color: #febb00
+    }
+}
+
+
+.user-avatar-nav {
+    width: 40px;
+    height: 40px;
+    font-size: 32px;
+    color: #febb00 ;
+    padding: 0;
+    
+
+    img {
+        width: 100%;
+        display: block;
+        border-radius: 50%;
+    }
 }

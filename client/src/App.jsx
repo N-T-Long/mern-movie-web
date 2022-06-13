@@ -1,29 +1,29 @@
-import { Route, Routes } from "react-router-dom";
-import "./App.scss";
+import { Route, Routes ,useLocation } from "react-router-dom";
 import {PrivateRoutes, PublicRoutes} from "./routes/index";
 import DefaultLayout from "./layout/DefaultLayout"
-import { useEffect, useState } from "react";
-import {useDispatch} from "react-redux"
-import {isSignIn} from "./redux-toolkit/slice/auth"
-import userApi from "./api/userApi"
+import AdminLayout from "./layout/AdminLayout"
+import "./App.scss";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { movieActions } from "./redux-toolkit/slice/movie";
+import { publicActions } from "./redux-toolkit/slice/public";
 
 function App() {
-  const token = window.localStorage.getItem("token")
+  const location = useLocation();
   const dispatch = useDispatch();
+  const role = useSelector(state => state.auth.role)
+  useEffect( () => {
+    const isWatchMovie =  (location.pathname.split("/")[1] === "xem-phim") ? true : false;
+
+    if (!isWatchMovie) 
+      dispatch(movieActions.unSelected())
+  }, [location])
 
   useEffect( () => {
-    if (token)  {
-        const updateStore = async () => {
 
-          const userInfo = await userApi.getProfile();
-          const action = isSignIn({...userInfo.user, token: token });
-          dispatch(action)
-        }
-        updateStore();
-    }
-    
-  },[])
+    dispatch(publicActions.loadingData())
 
+  }, [])
 
   return (
     <div className="App">
@@ -45,9 +45,23 @@ function App() {
       
 
         {/* Admin routes */}
-
+      {
+        
+        (role && role === "admin")? 
+        (
+          PrivateRoutes.map((route, index) =>{
+            const Page = route.component;
+            return <Route path={route.path} key={index}
+            element={
+              <AdminLayout>
+                <Page/>
+              </AdminLayout>} />
+          })
+        )
+        : 
+        <></>
+        }
       </Routes>
-
     </div>
   );
 }

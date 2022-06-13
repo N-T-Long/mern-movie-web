@@ -42,7 +42,8 @@ function Home(props) {
             // style={{paddingTop :"500px"}}
             >
                 <Container >
-                    <Row>
+                <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
+                    {/* <Row>
                         <Col  sm={8} >
                             <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
                         </Col>
@@ -52,7 +53,7 @@ function Home(props) {
                             </div>
                             <HotPanel/>
                         </div>
-                    </Row>
+                    </Row> */}
                 </Container>
             </div>
         </>

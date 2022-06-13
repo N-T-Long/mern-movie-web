@@ -12,7 +12,7 @@ const MovieSchema = new Schema({
   },
   name_URL: {
     type: String,
-    require: true,
+    required: true,
     unique: true,
   },
   likes: {
@@ -23,7 +23,10 @@ const MovieSchema = new Schema({
     type: Number,
     default: 0,
   },
-  director: [{ name: String }],
+  director: {
+    type: String,
+    default: "Đang cập nhật",
+  },
   country: {
     type: mongoose.Types.ObjectId,
     ref: "countries",
@@ -37,7 +40,10 @@ const MovieSchema = new Schema({
   },
   duration: Number,
   description: String,
-  casts: [{ name: String }],
+  casts: {
+    type: String,
+    default: "Đang cập nhật",
+  },
   genres: [
     {
       type: mongoose.Types.ObjectId,
@@ -54,9 +60,13 @@ const MovieSchema = new Schema({
   comments: [
     {
       body: String,
-      userID: {
+      user: {
         type: mongoose.Types.ObjectId,
         ref: "users",
+      },
+      create_at: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
@@ -67,7 +77,6 @@ const MovieSchema = new Schema({
   URL_image: String,
   create_at: {
     type: Date,
-    require: true,
     default: Date.now,
   },
 });

@@ -41,8 +41,12 @@
             border-radius: 10px;
             padding: 10px 0 10px 0px;
             margin-bottom: 30px;
+            height: 750px;
+            overflow-y: scroll;
 
-            max-height: 750px;
+
+
+            
             .comment {
                 width: 95%;
                 margin: 5px auto 5px auto;

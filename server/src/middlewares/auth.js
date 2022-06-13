@@ -28,9 +28,10 @@ const verifyToken = (req, res, next) => {
 const verifyAccessToken = (req, res, next) => {
   const authHeader = req.header("Authorization");
   const token = authHeader && authHeader.split(" ")[1];
+
   JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
     if (err) {
-      return res.status(401).json({
+      return res.status(200).json({
         success: false,
         message: "Unauthorization",
       });

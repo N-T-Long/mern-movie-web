@@ -16,26 +16,140 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
 
 {
-    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 4",
+    "name" : "Ấu Trùng Lava: Mặt Dây Chuyền 1",
     "other_name" : "Larva Pendant",
-    "name_URL": "au-trung-lava-mat-day-chuyen-4",
+    "name_URL": "au-trung-lava-mat-day-chuyen-1",
     "likes" : 0,
     "views" : 1,
-    "type" : "Phim lẻ",
     "year" : "2022",
     "duration" : 33,
     "description" : "Phần phim ngắn ngớ ngẩn tiếp theo của “Đảo ấu trùng” và “Bộ phim Đảo ấu trùng” xoay quanh những sự cố vụng về của đôi bạn hay xì hơi Đỏ và Vàng trong thành phố.",
-    "cast" :  [{"name": "Đang cập nhật"}],    
     "genres" : [
         ],
-    "comments": []
+    "comments": [
+        ]
     ,
     "language" : "Tiếng Việt",
-    "episode" : [
+    "episodes" : [
+
+        {
+            "name": "Tập 1",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+        },
+        {
+            "name": "Tập 2",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+        },
+        {
+            "name": "Tập 3",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+        },
+        {
+            "name": "Tập 4",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+        },
+        {
+            "name": "Tập 5",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+        },
+        {
+            "name": "Tập 6",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+        },
+        {
+            "name": "Tập 7",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+        },
+        {
+            "name": "Tập 8",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4"
+        }
+        
+    ], 
+    "URL_image": "https://static.247phim.com/165095/conversions/62948cc830b42_lava2022-435_627.jpg"
+}
+###
+#Create new movie
+POST http://localhost:5000/api/admin/movies/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
+
+{
+    "name" : "Jujutsu Kaisen 0: Chú Thuật Hồi Chiến 2",
+    "other_name" : "Jujutsu Kaisen Movie",
+    "name_URL": "jujutsu-kaisen-0-chu-thuat-hoi-chien-2",
+    "likes" : 2,
+    "views" : 3000,
+    "type_movie" : "phimle",
+    "year" : "2022",
+    "duration" : 120,
+    "description" : "Cho những ai chưa biết, Jujutsu Kaisen 0 là là tập truyện ngắn ra mắt trước khi Chú Thuật Hồi Chiến được sáng tác. Trọng tâm câu chuyện xoay quanh nguyền sư đặc cấp Yuta Okkotsu trong thời gian anh ta mới vào học viện chú thuật.Theo nhiều dự đoán, Jujutsu Kaisen 0 được chuyển thể anime movie là 'bước mở đường' cho những dự án Jujutsu Kaisen tiếp theo. Phần phim này sẽ giúp giải thích về các nhân vật chính, đặc biệt là những nguyền sư đặc cấp hiện tại.",
+    "language" : "Tiếng Việt",
+    "episodes" : [
         {
             "name": "Full",
-            "URL_episode": "youtube.com/embed/4hhOZ1QWU4g"
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+        }        
+    ], 
+    "URL_image": "https://static.247phim.com/165112/conversions/629f022b0ee13_chuthuathoichien-435_627.jpg"
+}
+###
+
+
+
+#Create new movie
+POST http://localhost:5000/api/admin/movies/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliMjc3NmYzMGVmMWIxYTk2OGUzZDUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNjY0MjV9.jaexCa2U-YXDsfRq2koWw8ykajb4zu9G0C0mh7etzG4
+
+{
+    "name" : "Kẻ Truyền Thừa2",
+    "other_name" : "The Giver",
+    "name_URL": "ke-truyen-thua2",
+    "type_movie": "phimbo",
+    "year" : 2022,
+    "duration" : 45,
+    "description" : "Phần phim ngắn ngớ ngẩn tiếp theo của “Đảo ấu trùng” và “Bộ phim Đảo ấu trùng” xoay quanh những sự cố vụng về của đôi bạn hay xì hơi Đỏ và Vàng trong thành phố.",
+    "genres" : ["629c75511fe09d0c71de10ba","629c74d91fe09d0c71de109c"],
+    "comments": [
+        ]
+    ,
+    "language" : "Tiếng Việt",
+    "episodes" : [
+
+        {
+            "name": "Tập 1",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+        },
+        {
+            "name": "Tập 2",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+        },
+        {
+            "name": "Tập 3",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"
+        },
+        {
+            "name": "Tập 4",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4"
+        },
+        {
+            "name": "Tập 5",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4"
+        },
+        {
+            "name": "Tập 6",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4"
+        },
+        {
+            "name": "Tập 7",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+        },
+        {
+            "name": "Tập 8",
+            "URL_episode": "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4"
         }
+        
     ], 
     "URL_image": "https://static.247phim.com/165095/conversions/62948cc830b42_lava2022-435_627.jpg"
 }
@@ -51,10 +165,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliM
 ### Update movie - add mew comment
 PATCH http://localhost:5000/api/admin/movies/629bc9049dc870b49e3330ba/update
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliYjBhMmZlZTM0OTkzYmExZWNhYmIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNzQyOTN9.vzb8w1c3f8I0CJUdpSc0RmQDL9jWiJuC8mk8wkCSRAA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ4OTkwNDh9.1j2TAV1JUinhEAI0egxFSCBlRy_uWmLaxKmTOdY4xFs
 
 {
-    "likes" : 1
+    "c" : 1
 }
 ###
 
@@ -177,9 +291,9 @@ POST http://localhost:5000/api/auth/register
 Content-Type: application/json
 
 {
-    "username": "bachga1",
-    "password": "bachga1",
-    "email": "bachga1"
+    "username": "long",
+    "password": "nguyenlong123",
+    "email": "nguyenthanhlong@gmail.com"
 }
 ###
 
@@ -189,8 +303,8 @@ POST http://localhost:5000/api/auth/login
 Content-Type: application/json
 
 {
-    "username": "bachga",
-    "password": "bachga"
+    "username": "long",
+    "password": "nguyenlong123"
 }
 ###
 
@@ -200,12 +314,22 @@ Content-Type: application/json
 ### Public
 
 
-### GET all movie
-GET http://localhost:5000/api/movies/629cf327ee4b34c758ceda7b
+### GET 
+GET http://localhost:5000/api/movies/62a2aa766ad804a4a57dfee5
+###
+
+### GET 
+GET http://localhost:5000/api/movies/url/au-trung-lava-mat-day-chuyen-16
+
 ###
 
 ### GET all movie
-GET http://localhost:5000/api/movies
+GET http://localhost:5000/api/movies 
+Content-Type: application/json
+
+{
+    "genres": "629c74d01fe09d0c71de109a"
+}
 ###
 
 ### GET all slides
@@ -227,7 +351,7 @@ GET http://localhost:5000/api/movies?page=2&limit=2
 ###
 
 ###
-PATCH http://localhost:5000/api/movies/629cf327ee4b34c758ceda7b/newView
+PATCH http://localhost:5000/api/movies/62a383294dfcbba16276f682/newView
 ###
 
 
@@ -237,16 +361,16 @@ PATCH http://localhost:5000/api/movies/629cf327ee4b34c758ceda7b/newView
 ### Get Pofile user
 GET http://localhost:5000/api/user/profile
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliYjBhMmZlZTM0OTkzYmExZWNhYmIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzODMxOTN9.A213gn4zSEr35Bi-GkyryE6AbKMaEPKW0wMeTPdL1eg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ5NDU5NzN9.ATP7n6kJ4ZGunIvh42Iq_caV-s8iR9HbmXAw7GNz7X8
 ###
 
 ### update user's profile 
 POST http://localhost:5000/api/user/profile/update
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliYjBhMmZlZTM0OTkzYmExZWNhYmIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzODMxOTN9.A213gn4zSEr35Bi-GkyryE6AbKMaEPKW0wMeTPdL1eg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ5MTI5MjN9.S2J4EYHUTh9Vj3M3hM4ukJAMhsTwivpESAOyyRAAHNI
 
 {
-    "name" : "Nguyen Thanh Long"
+    "URL_avatar" : "https://scontent.fsgn5-9.fna.fbcdn.net/v/t39.30808-6/242608187_3096819677270582_5742840312039777423_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=KaAmHK1ZREkAX8l-uP9&_nc_ht=scontent.fsgn5-9.fna&oh=00_AT-r-SqUDmn6L-uomBnsGfrgIYv8CBU30NueH1D6Bx-W3w&oe=62A88CC1"
 }
 ###
 
@@ -299,12 +423,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliY
 ###
 
 ### Update movie - add new comment
-PATCH http://localhost:5000/api/user/movies/629bc9049dc870b49e3330ba/comment/new
+PATCH http://localhost:5000/api/user/movies/62a3cccbed21c50eb3fda31d/comment/new
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MjliYjBhMmZlZTM0OTkzYmExZWNhYmIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQzNzgxODJ9.phQLFPS3JFb2cuAFGBlyKktAYq4qXe4j8V51aL-3IeE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySUQiOiI2MmEyYWE3NjZhZDgwNGE0YTU3ZGZlZTUiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2NTQ5NDU5NzN9.ATP7n6kJ4ZGunIvh42Iq_caV-s8iR9HbmXAw7GNz7X8
 
 {
-    "body" : "comment 3"
+    "body" : "comment 6"
 }
 ###
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import "./style.css"
+import "./style.scss"
 import { Row, Col, Tab, Nav, NavItem, Form, Button } from 'react-bootstrap';
 Profile.propTypes = {
 

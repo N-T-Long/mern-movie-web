@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./style.scss";
 import { useDispatch} from "react-redux"
-import {isSelected} from "../../../redux-toolkit/slice/movie"
+import {movieActions} from "../../../redux-toolkit/slice/movie"
 
 Movie.propTypes = {
   movie : PropTypes.object
@@ -32,13 +32,12 @@ function Movie(props) {
   const dispatch = useDispatch();
 
   const handleOpenMovie =() => {
-    const action = isSelected(props.movie._id);
-    dispatch(action)
+    dispatch(movieActions.isSelected, props.movie._id)
   }
 
   return (
-    <div className="movie col-lg-3 col-md-4 col-sm-4 col-6">
-      <Link className="movie-url" to={`xem-phim/${props.movie.name_URL}`} onClick={handleOpenMovie}>
+    <div className="movie col-lg-2 col-md-3 col-sm-4 col-6">
+      <Link className="movie-url" to={`/xem-phim/${props.movie.name_URL}`} onClick={handleOpenMovie}>
         <div className="img-4-6">
           <div className="inline">
             <img src={props.movie.URL_image} alt={props.movie.other_name}/>

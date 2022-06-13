@@ -10,13 +10,7 @@ const getProfile = async (req, res) => {
     if (user)
       res.status(200).json({
         success: true,
-        user: {
-          username: user.username,
-          name: user.name,
-          email: user.email,
-          gender: user.gender,
-          URL_avatar: user.URL_avatar,
-        },
+        user,
       });
     else
       res.status(404).json({
@@ -179,7 +173,7 @@ const addNewViewedMovie = async (req, res) => {
     );
     res.status(200).json({
       success: true,
-      message: "Update success",
+      message: "Update su ccess",
     });
   } catch (error) {
     console.log(error);
@@ -203,16 +197,25 @@ const addNewComment = async (req, res) => {
       {
         ...req.body,
         _id: new mongoose.Types.ObjectId(),
-        userID: req.payload.userID,
+        user: req.payload.userID,
       },
     ];
     const newComments = [...comments, ...newComment];
     await Movie.findByIdAndUpdate(req.params.movieID, {
       comments: newComments,
     });
+    const commentsUpdated = await Movie.findById(req.params.movieID).populate({
+      path: "comments",
+      populate: {
+        path: "user",
+        select: "username URL_avatar",
+      },
+    });
+
     return res.status(200).json({
       success: true,
-      message: "Movie added new comment!!! ",
+      message: "Movie added new comment!!!",
+      commentsUpdated: commentsUpdated.comments,
     });
   } catch (error) {
     console.log(error);
