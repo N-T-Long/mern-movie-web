@@ -1,5 +1,5 @@
-import { Route, Routes ,useLocation } from "react-router-dom";
-import {PrivateRoutes, PublicRoutes} from "./routes/index";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { PrivateRoutes, PublicRoutes } from "./routes/index";
 import DefaultLayout from "./layout/DefaultLayout"
 import AdminLayout from "./layout/AdminLayout"
 import "./App.scss";
@@ -12,14 +12,14 @@ function App() {
   const location = useLocation();
   const dispatch = useDispatch();
   const role = useSelector(state => state.auth.role)
-  useEffect( () => {
-    const isWatchMovie =  (location.pathname.split("/")[1] === "xem-phim") ? true : false;
+  useEffect(() => {
+    const isWatchMovie = (location.pathname.split("/")[1] === "xem-phim") ? true : false;
 
-    if (!isWatchMovie) 
+    if (!isWatchMovie)
       dispatch(movieActions.unSelected())
   }, [location])
 
-  useEffect( () => {
+  useEffect(() => {
 
     dispatch(publicActions.loadingData())
 
@@ -28,38 +28,38 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        
-        {/* Public routes */}
-        
-        {
-      
-        PublicRoutes.map((route, index) =>{
-          const Page = route.component;
-          return <Route path={route.path} key={index}
-          element={
-            <DefaultLayout>
-              <Page/>
-            </DefaultLayout>} />
-        })
-        }
-      
 
-        {/* Admin routes */}
-      {
-        
-        (role && role === "admin")? 
-        (
-          PrivateRoutes.map((route, index) =>{
+        {/* Public routes */}
+
+        {
+
+          PublicRoutes.map((route, index) => {
             const Page = route.component;
             return <Route path={route.path} key={index}
-            element={
-              <AdminLayout>
-                <Page/>
-              </AdminLayout>} />
+              element={
+                <DefaultLayout>
+                  <Page />
+                </DefaultLayout>} />
           })
-        )
-        : 
-        <></>
+        }
+
+
+        {/* Admin routes */}
+        {
+
+          (role && role === "admin") ?
+            (
+              PrivateRoutes.map((route, index) => {
+                const Page = route.component;
+                return <Route path={route.path} key={index}
+                  element={
+                    <AdminLayout>
+                      <Page />
+                    </AdminLayout>} />
+              })
+            )
+            :
+            <></>
         }
       </Routes>
     </div>
