@@ -282,6 +282,27 @@ const getALlSlides = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res, next) => {
+  const user = await User.findById(req.params.userID);
+  if (!user)
+    return res.status(200).json({
+      success: false,
+      message: "user not found!",
+    });
+  try {
+    await User.findByIdAndDelete(req.params.userID);
+    return res.status(200).json({
+      success: true,
+      message: "Delete success",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 const deleteMovie = async (req, res, next) => {
   const movie = await Movie.findById(req.params.movieID);
   if (!movie)
@@ -381,6 +402,7 @@ module.exports = {
   createNewMovie,
   createNewEpisode,
   deleteMovie,
+  deleteUser,
   patchLockedUser,
   patchRemovedUser,
   updateMovie,

@@ -307,7 +307,11 @@ function AdminCreateMovie(props) {
                             </Form.Group>
                     </Row>
 
-                    <Button type="submit" style={{marginTop: "10px"}}
+                    <Button 
+                        type="submit" 
+                        variant="warning"
+                        size="lg"
+                        style={{marginTop: "20px"}}
                         onClick={handleSubmit(handleCreate)}
                     >Tạo phim</Button>
                 </Form>
@@ -322,19 +326,27 @@ function AdminCreateMovie(props) {
                         <Form>
                             <Form.Control 
                                 type="file"
+                                accept="image/png, image/jpg, image/jpeg"
                                 onChange={(e) => setImage(e.target.files[0])}
                             />
-                            <Form.Label>Tên file</Form.Label>
+                            <Form.Label style={{margin: "10px 0px"}}>Tên file</Form.Label>
                             <Form.Control type="text" onChange={(e) => setImageName(e.target.value)}/>
                         
-                            <Button type="button" onClick={handleUploadImage }>Thêm</Button>
+                            <Button 
+                                type="button" 
+                                variant="warning"
+                                style={{margin: "10px 0"}}
+                                onClick={handleUploadImage }
+                            >
+                                Thêm
+                            </Button>
                         </Form>
                     </Modal.Body>
 
                 </Modal>
 
                 {/* modal import video */}
-                {/* <Modal show={modalVideoShow} onHide={handleHideModalImportVideo}>
+                <Modal show={modalVideoShow} onHide={handleHideModalImportVideo}>
                     <Modal.Header closeButton>
                         <Modal.Title>Thêm video</Modal.Title>
                     </Modal.Header>
@@ -342,15 +354,23 @@ function AdminCreateMovie(props) {
                         <Form>
                             <Form.Control 
                                 type="file"
+                                accept="video/mp4, video/MPEG-4, video/webm"
                                 onChange={(e) => setVideo(e.target.files[0])}
                             />
                             <Form.Label>Tên file</Form.Label>
                             <Form.Control type="text" onChange={(e) => setVideoName(e.target.value)}/>
                         
-                            <Button type="button" onClick={handleUploadVideo }>Thêm</Button>
+                            <Button 
+                                type="button" 
+                                variant="warning"
+                                style={{margin: "10px 0"}}
+                                onClick={handleUploadVideo }
+                            >
+                                Thêm
+                            </Button>
                         </Form>
                     </Modal.Body>
-                </Modal> */}
+                </Modal>
 
             </div>
         </div>

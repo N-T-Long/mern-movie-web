@@ -13,6 +13,7 @@ const {
   createNewGenre,
   createNewCountry,
   deleteMovie,
+  deleteUser,
   updateMovie,
   patchLockedUser,
   patchRemovedUser,
@@ -69,6 +70,16 @@ route.post(
   verifyAccessToken,
   authPage(["admin"]),
   deleteMovie
+);
+
+// @Router DELETE /api/admin/users/:userID
+// @desc Delete a user
+// @access private
+route.post(
+  "/users/:userID/delete",
+  verifyAccessToken,
+  authPage(["admin"]),
+  deleteUser
 );
 
 // @Router PATCH /api/admin/movies/:movieID

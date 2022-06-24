@@ -1,43 +1,37 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import {Button, Table} from "react-bootstrap"
-import { useDispatch, useSelector } from 'react-redux';
-import {adminActions} from "../../redux-toolkit/slice/admin"
+import {Button} from "react-bootstrap"
 import MUIDataTable from "mui-datatables";
 import adminApi from '../../api/adminApi';
 
 
 function UserList(props) {
-    const dispatch = useDispatch()
     const [data, setData] = useState([]);
-    const movieList = useSelector(state => state.admin.movielist);
-    const genres = useSelector(state => state.public.genres);
-    const countries = useSelector(state => state.public.countries);
-    const [show, setShow] = useState(false);
 
     useEffect( () => {
-        const fetchAllUser = async () => {
-            const res = await adminApi.getAllUsers();
-            let newData = [];
-            res.users.map((user) => newData.push([
-                user.username,
-                user.gender, 
-                user.role,
-                user.email, 
-                user.create_at
-            ])
-            )
-            setData(newData);
-        }
         fetchAllUser()
     },[] )
-
+    
     const columns = [
         "Tài khoản", 
         "Giới tính", 
         "Quyền", 
         "Email", 
         "Ngày tạo",
+        {
+            name: "Chỉnh sửa",
+            options: {
+              filter: false,
+              customBodyRender: (value, tableMeta, updateValue) => (
+                < >
+                    <Button variant="warning" className="button-edit" > Chỉnh sửa</Button>
+                    <Button  onClick={() =>{handleRemoveUser(value)}} variant="danger" className="button-edit">Xóa</Button>
+                   
+                </>
+              )
+            }
+          },
+
 ];
 
     const options = {
@@ -48,8 +42,31 @@ function UserList(props) {
 
     };
 
+    const handleRemoveUser = async (user) => {
+        if (window.confirm(`Bạn chắc chắn muốn xóa người dùng: ${user.username}`) === true) {
+            const res = await adminApi.removeUser(user._id)
+            if (res.success === true)
+            fetchAllUser()
+        }
+    }
+    
 
 
+
+    const fetchAllUser = async () => {
+        const res = await adminApi.getAllUsers();
+        let newData = [];
+        res.users.map((user) => newData.push([
+            user.username,
+            user.gender, 
+            user.role,
+            user.email, 
+            user.create_at,
+            user
+        ])
+        )
+        setData(newData);
+    }
     return (
         <div className="" >
           <MUIDataTable

@@ -17,6 +17,10 @@ const adminApi = {
     const url = `/admin/movies/${movieID}/delete`;
     return axiosClient.post(url);
   },
+  removeUser: (userID) => {
+    const url = `/admin/users/${userID}/delete`;
+    return axiosClient.post(url);
+  },
   addNewSlide: (params) => {
     const url = "/admin/slides/create";
     return axiosClient.post(url, params);

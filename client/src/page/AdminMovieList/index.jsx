@@ -39,7 +39,7 @@ function MovieList(props) {
         "Lượt thích",
         "Ngày tạo",
         {
-            name: "Name",
+            name: "Chỉnh sửa",
             options: {
               filter: false,
               customBodyRender: (value, tableMeta, updateValue) => (
@@ -86,7 +86,7 @@ function MovieList(props) {
 
 
     const handleRemoveMovie = async (movie) => {
-        if (window.confirm(`Bạn chắc chắn muốn xóa phim: ${movie.name}`) == true) {
+        if (window.confirm(`Bạn chắc chắn muốn xóa phim: ${movie.name}`) === true) {
             const res = await adminApi.removeMovie(movie._id)
             if (res.success === true)
                 fetchAllMovie()
@@ -113,7 +113,6 @@ function MovieList(props) {
 
     const handleAddEpisode = async (data) => {
         const res = await adminApi.addNewEpisode(idMovieAddEpisode, {"URL_episode": videoUrl, "name" : data.name});
-        console.log(res)
         if (res.success) {
             handleHideModalAddEpisode()
             setVideoUrl("");

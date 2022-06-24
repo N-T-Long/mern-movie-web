@@ -140,7 +140,7 @@ function PageMovieList(props) {
                 </Form.Group>
 
                 <Form.Group as={Col} md="4">
-                    <Form.Label style={{color: "#febb00"}}>Quốc gia</Form.Label>
+                    <Form.Label style={{color: "#febb00"}}>Thể loại</Form.Label>
                     <Form.Select
                         {...register('genres')}
                         onChange={(e) => {

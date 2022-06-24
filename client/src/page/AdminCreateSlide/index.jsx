@@ -116,7 +116,11 @@ function AdminCreateSlide(props) {
                     </Form.Group>
                 </Row>
 
-                <Button type="submit" style={{marginTop: "10px"}}
+                <Button 
+                    type="submit" 
+                    variant="warning"
+                    size="lg"
+                    style={{marginTop: "10px"}}
                     onClick={handleSubmit(handleCreate)}
                 >Tạo slide</Button>
             </Form>
@@ -131,12 +135,20 @@ function AdminCreateSlide(props) {
                     <Form>
                         <Form.Control 
                             type="file"
+                            accept="image/png, image/jpg, image/jpeg"
+
                             onChange={(e) => setImage(e.target.files[0])}
                         />
                         <Form.Label>Tên file</Form.Label>
                         <Form.Control type="text" onChange={(e) => setImageName(e.target.value)}/>
                     
-                        <Button type="button" onClick={handleUploadImage }>Thêm</Button>
+                        <Button 
+                            variant="warning"
+                            style={{margin: "10px 0"}}
+                            onClick={handleUploadImage}
+                        >
+                            Thêm
+                        </Button>
                     </Form>
                 </Modal.Body>
 
