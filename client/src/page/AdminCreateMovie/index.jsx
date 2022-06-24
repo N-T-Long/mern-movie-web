@@ -84,6 +84,8 @@ function AdminCreateMovie(props) {
         "name" : data.name,
         "other_name" : data.other_name,
         "name_URL": data.name_URL,
+        "casts" : data.casts ,
+        "director" : data.director,
         "type_movie": data.type_movie,
         "year" : parseInt(data.year),
         "country": data.country,
@@ -98,10 +100,7 @@ function AdminCreateMovie(props) {
     const res = await adminApi.addNewMovie(movie);
     console.log(res.success);
     (res.success) ? navigate("/admin/danh-sach-phim") : 
-    
         alert("Phim vừa tạo đã tồn tại!!!")
-
-    
   };
 
   const handleUploadImage = (e) => {
@@ -134,7 +133,6 @@ function AdminCreateMovie(props) {
     return (
         <div className="container">
             <div className="create-movie">
-                {console.log("rerender")}
                 <h1 className="create-movie-title">Thêm Phim mới</h1>
 
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
@@ -170,8 +168,6 @@ function AdminCreateMovie(props) {
                             {errors.name_URL && <p className="error-message">{errors.name_URL.message}</p>}
                         </Form.Group>
                     </Row>
-
-
 
                     <Row className="mb-3">          
                         <Form.Group as={Col} md="2" controlId="validationCustom01">
@@ -338,7 +334,7 @@ function AdminCreateMovie(props) {
                 </Modal>
 
                 {/* modal import video */}
-                <Modal show={modalVideoShow} onHide={handleHideModalImportVideo}>
+                {/* <Modal show={modalVideoShow} onHide={handleHideModalImportVideo}>
                     <Modal.Header closeButton>
                         <Modal.Title>Thêm video</Modal.Title>
                     </Modal.Header>
@@ -354,8 +350,7 @@ function AdminCreateMovie(props) {
                             <Button type="button" onClick={handleUploadVideo }>Thêm</Button>
                         </Form>
                     </Modal.Body>
-                    
-                </Modal>
+                </Modal> */}
 
             </div>
         </div>

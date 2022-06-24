@@ -11,21 +11,21 @@ Movie.propTypes = {
 };
 
 
-function change_view(views) {
-  let result = 0;
-  let shortView = "";
-  if (views >= 1000000){
-    result = views/1000000;
-    result =  result.toFixed(1);
-    shortView = result.toString() + "M"
-  } else{
-    result = views/1000;
-    result =  result.toFixed(1);
-    shortView = result.toString() + "K"
-  }
+// function change_view(views) {
+//   let result = 0;
+//   let shortView = "";
+//   if (views >= 1000000){
+//     result = views/1000000;
+//     result =  result.toFixed(1);
+//     shortView = result.toString() + "M"
+//   } else{
+//     result = views/1000;
+//     result =  result.toFixed(1);
+//     shortView = result.toString() + "K"
+//   }
   
-  return shortView
-}
+//   return shortView
+// }
 
 
 function Movie(props) {
@@ -50,16 +50,11 @@ function Movie(props) {
         <div className="func row">
           <div className="col-6 views">
             <i className="bi bi-eye-fill"/>
-            <a>{change_view(props.movie.view)}</a>
+            <a>{props.movie.views}</a>
           </div>
-          <div className="col-6 rate">
-          
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-                <i className="bi bi-star-fill"></i>
-
+          <div className="col-6 views">
+            <i className="bi bi-hand-thumbs-up-fill"/>
+            <a>{props.movie.likes}</a>
           </div>
         </div>
       </Link> 

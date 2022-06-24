@@ -1,110 +1,181 @@
 import React from 'react';
+import axios from "axios"
 import { useEffect, useState } from 'react';
-import {Button, Table} from "react-bootstrap"
+import {Button, Modal,Form } from "react-bootstrap"
 import { useDispatch, useSelector } from 'react-redux';
 import {adminActions} from "../../redux-toolkit/slice/admin"
+import { Controller, useForm } from "react-hook-form";
+import MUIDataTable from "mui-datatables";
+import adminApi from '../../api/adminApi';
+import "./style.scss"
+
 
 function MovieList(props) {
     const dispatch = useDispatch()
+    const [data, setData] = useState([]);
+    const [video, setVideo ] = useState(undefined);
+    const [videoUrl, setVideoUrl ] = useState("");
+    const [showModalEdit, setShowModalEdit] = useState(false);
+    const [idMovieAddEpisode, setIdMovieAddEpisode] = useState("");
+    const [showModalAddEpisode, setShowModalAddEpisode] = useState(false);
     const movieList = useSelector(state => state.admin.movielist);
     const genres = useSelector(state => state.public.genres);
-    const [show, setShow] = useState(false);
+    const countries = useSelector(state => state.public.countries);
+    const { register, handleSubmit, reset, formState: { errors } , control} = useForm()
+
     useEffect( () => {
-        dispatch(adminActions.fetchMovieList());
+        fetchAllMovie()
     },[] )
 
-    const handleDeleteMovie = (e) => {
-
-        console.log(e);
-
-    }
-
-    const handleUpdateMovie = () => {
-
-    }
-
-    const handleAddNewEpisode = () => {
 
 
-    }
-    return (
-        <Table striped responsive="lg" bordered hover variant="dark">
-        <thead>
-          <tr fixed>
 
-            <th>STT</th>
-            <th>ID</th>
-            <th>Tên phim</th>
-            <th>Tên khác</th>
-            <th>Tên phim URL</th>
-            <th>Thời lượng</th>
-            <th>Quốc gia</th>
-            <th>Ngôn ngữ</th>
-            <th>Đạo diễn</th>
-            <th>Năm</th>
-            <th>Loại Phim</th>
-            <th>Thể loại</th>
-            <th>Lượt  xem</th>
-            <th style={{minWidth: "300px"}}>Mô tả</th>
-            <th>Ngày tạo</th>
-            <th style={{minWidth: "150px"}}>Chỉnh sửa</th>
-          </tr>
-        </thead>
-        <tbody>
-            {
-                movieList?.map((movie, index) => 
-                    <tr  key={index}>
+    const columns = [
 
-                        <td>{index}</td>
-                        <td>{movie._id}</td>
-                        <td>{movie.name}</td>
-                        <td>{movie.other_name}</td>
-                        <td>{movie.name_URL}</td>
-                        <td>{movie.duration}</td>
-                        <td>{movie.language}</td>
-                        <td>{movie.country}</td>
-                        <td>{movie.director}</td>
-                        <td>{movie.year}</td>
-                        <td>{(movie.type_movie ==="phimle")?"Phim lẻ" : "Phim bộ"}</td>
-                        <td>
-                            <table>
-
-                             {movie.genres?.map((item, index) => 
-                            //  <tr key={index}>
-                                
-                                    genres?.map((genre) => {
-                                        if (genre._id === item)
-                                             return `${genre.name } ,`
-                                    })
-                                
-                                // </tr>
-                            )}
-                            </table>
-
-                        </td>
-                        <td>{movie.views}</td>
-                        <td>{movie.description}</td>
-                        <td>{(movie.create_at)}</td>
-                        <td>
-                            {
-                                <>
-                                
-                                    {(movie.type_movie === "phimbo") ? <Button onClick={handleAddNewEpisode} variant="info">Thêm tập mới</Button> : <></>}
-
-                                    <Button as="button" onCLick={handleUpdateMovie} style={{ margin: "20px 0 20px 0"}} variant="warning">Chỉnh sửa</Button>
-                                    <Button as="button" onCLick={handleDeleteMovie} variant="danger">Xóa</Button>
-                                </>
-                            }
-
-                        </td>
-
-                    </tr>
-                
-                )
+        "Tên phim", 
+        "Tên khác", 
+        "Loại phim", 
+        "Lượt xem", 
+        "Lượt thích",
+        "Ngày tạo",
+        {
+            name: "Name",
+            options: {
+              filter: false,
+              customBodyRender: (value, tableMeta, updateValue) => (
+                < >
+                    <Button variant="warning" className="button-edit" > Chỉnh sửa phim</Button>
+                    <Button  onClick={() =>{handleRemoveMovie(value)}} variant="danger" className="button-edit">Xóa phim</Button>
+                    {
+                        (value.type_movie === "phimbo") 
+                        ? 
+                        <Button 
+                            onClick={() => {
+                                setShowModalAddEpisode(true)
+                                setIdMovieAddEpisode(value._id)
+                            }} 
+                            variant="success" 
+                            className="button-edit"
+                        >Thêm tập mới</Button>  
+                        :
+                        <></>}
+                </>
+              )
             }
+          },
+        ];
 
-        </tbody>
-      </Table>
+    const options = {
+        selectableRows: "none",
+
+        download: false,
+        print: false
+
+    };
+
+    const fetchAllMovie = async () => {
+        const res = await adminApi.getAllMovies();
+
+        let newData = [];
+        res.movies.map((movie) => newData.push([
+            movie.name, movie.other_name, movie.type_movie,movie.views, movie.likes ,movie.create_at,movie
+        ])
+        )
+        setData(newData);
+    }
+
+
+    const handleRemoveMovie = async (movie) => {
+        if (window.confirm(`Bạn chắc chắn muốn xóa phim: ${movie.name}`) == true) {
+            const res = await adminApi.removeMovie(movie._id)
+            if (res.success === true)
+                fetchAllMovie()
+        }
+    }
+
+
+
+    const handleHideModalAddEpisode = () =>{
+        setShowModalAddEpisode(false)
+    }
+
+    const handleCreateVideoUrl = () => {
+        const videoFormData = new FormData();
+        videoFormData.append("video",video);
+        axios({
+            url: "http://localhost:4000/videos/upload",
+            method: "POST",
+            data: videoFormData
+        }).then((res) => {
+            setVideoUrl(res.data)
+        })
+    }
+
+    const handleAddEpisode = async (data) => {
+        const res = await adminApi.addNewEpisode(idMovieAddEpisode, {"URL_episode": videoUrl, "name" : data.name});
+        console.log(res)
+        if (res.success) {
+            handleHideModalAddEpisode()
+            setVideoUrl("");
+            setIdMovieAddEpisode(undefined)
+            reset()
+
+        }
+    }
+
+    return (
+        <div className="" >
+ 
+          <MUIDataTable
+            title={"Danh sách phim"}
+            data={data}
+            columns={columns}
+            options={options}
+            />
+
+
+            {/* modal import video */}
+            <Modal show={showModalAddEpisode} onHide={handleHideModalAddEpisode}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Thêm Tập phim mới</Modal.Title>
+                </Modal.Header>
+                 <Modal.Body>
+                    <Form>
+                        <Form.Control 
+                            type="file"
+                            accept="video/mp4, video/MPEG-4, video/webm"
+                             onChange={(e) => setVideo(e.target.files[0])}
+                        />
+                        <Button type="button" 
+                            variant="info"
+                            size="sm"
+                            style={{ margin: "10px 0"}}
+                            onClick={handleCreateVideoUrl }
+                        >Tạo đường link video</Button>
+                        <Form.Control type="text" 
+                            id="url-new-episode"
+                            placeholder="Đường link video"
+                            {...register("URL_episode")}
+                            value = {videoUrl}
+
+                        />
+                        <Form.Label>Tên tập phim</Form.Label>
+                        <Form.Control type="text" 
+                            {...register("name")}
+                            placeholder="Tên tập phim"
+                        />
+                    
+                        <Button type="button" 
+                            variant="success"
+                            size = "lg"
+                            style ={{float: "right", margin: "20px 10px"}}
+                            onClick={handleSubmit(handleAddEpisode) }
+                        >Thêm tập mới</Button>
+                    </Form>
+                </Modal.Body> 
+            </Modal>
+        </div>
+
     );
 }
 

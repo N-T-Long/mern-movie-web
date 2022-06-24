@@ -19,10 +19,14 @@ function* handleUpdateView(action) {
   }
 }
 
+function* handleReloadData(action) {
+  const res = yield call(publicApi.getMovie, action.payload);
+  yield put(movieActions.updateMovieSuccess(res.movie));
+}
+
 function* handleCreateNewComment(action) {
   try {
     const res = yield call(userApi.addNewComment, action.payload);
-    console.log(res);
     yield put(movieActions.addNewCommentSussces(res.commentsUpdated));
   } catch (error) {}
 }
@@ -30,4 +34,5 @@ export default function* movieSaga() {
   yield takeLatest(movieActions.isSelecting.type, handleFetchMovie);
   yield takeEvery(movieActions.updateView.type, handleUpdateView);
   yield takeEvery(movieActions.addNewComment.type, handleCreateNewComment);
+  yield takeEvery(movieActions.reloadData.type, handleReloadData);
 }

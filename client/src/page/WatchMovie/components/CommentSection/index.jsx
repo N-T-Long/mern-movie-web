@@ -46,25 +46,9 @@ function CommentSection(props) {
                 <div className="comment-list">
                     {
                         comments ? comments.map( (comment, index) => (
-                            <Comment key={index} content={comment.body} URL_avatar={comment.user.URL_avatar} username={comment.user.username}/>
+                            <Comment key={index} content={comment.body} create_at={comment.create_at} URL_avatar={comment.user.URL_avatar} username={comment.user.username} />
                         )) : <></>
                     }
-
-                    {/* <div className="pagination-comment">
-                        <div aria-label="Page navigation ">
-                            <ul className="pagination justify-content-center">
-                                <li className="page-item disabled">
-                                <a className="page-link">Previous</a>
-                                </li>
-                                <li className="page-item"><a className="page-link" href="#">1</a></li>
-                                <li className="page-item"><a className="page-link" href="#">2</a></li>
-                                <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                <li className="page-item">
-                                <a className="page-link" href="#">Next</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div> */}
                 </div>
                 <Form className='comment-create'>
                         <Form.Control 

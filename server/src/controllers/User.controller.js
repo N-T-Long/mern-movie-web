@@ -47,14 +47,16 @@ const updateProfile = async (req, res) => {
 const getListLikeMovies = async (req, res) => {
   try {
     const userID = req.payload.userID;
-    const user = await User.findById(userID);
+    const user = await User.findById(userID).populate({
+      path: "like_movies",
+    });
     if (user)
       res.status(200).json({
         success: true,
         like_movies: user.like_movies,
       });
     else
-      res.status(404).json({
+      res.status(200).json({
         success: false,
         message: "ID user not found",
       });
@@ -71,11 +73,30 @@ const addNewLikeMovie = async (req, res) => {
   try {
     const userID = req.payload.userID;
     const user = await User.findById(userID);
+    const movie = await Movie.findById(req.body.movieID);
     const listMovie = user.like_movies;
-    const update = req.body;
-    listMovie.push(update);
-    console.log(listMovie);
-    await User.findByIdAndUpdate({ _id: userID }, { like_movies: listMovie });
+    let newLike = 0;
+    let newListMovie = [];
+    if (req.body.type_like) {
+      listMovie.push(req.body.movieID);
+      newListMovie = listMovie;
+      newLike = movie.likes + 1;
+    } else {
+      newListMovie = listMovie.filter(
+        (item) => item.toString() !== req.body.movieID
+      );
+      newLike = movie.likes - 1;
+    }
+
+    await User.findByIdAndUpdate(
+      { _id: userID },
+      { like_movies: newListMovie }
+    );
+    await Movie.findByIdAndUpdate(
+      { _id: req.body.movieID },
+      { likes: newLike }
+    );
+    const user2 = await User.findById(userID);
     res.status(200).json({
       success: true,
       message: "Update success",

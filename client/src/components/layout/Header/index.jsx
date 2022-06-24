@@ -6,7 +6,8 @@ import logo from "../../../access/img/logo.svg";
 import publicApi from "../../../api/publicApi";
 import { authActions } from '../../../redux-toolkit/slice/auth';
 import "./style.scss";
-
+import {useForm} from "react-hook-form";
+import {useNavigate,createSearchParams} from "react-router-dom";
 
 function Header(props) {
     const dispatch = useDispatch();
@@ -14,8 +15,8 @@ function Header(props) {
     const currentUser = useSelector(state => state.auth.currentUser);
     const genres = useSelector(state => state.public.genres)
     const countries = useSelector(state => state.public.countries)
-
-
+    const { register, handleSubmit, formState: { errors } , control} = useForm();
+    const navigate = useNavigate();
 
 
     // Default list odd movie
@@ -27,10 +28,8 @@ function Header(props) {
         {name: "Phim bộ Hàn Quốc", name_URL: "han-quoc"},
         {name: "Phim bộ Mỹ", name_URL: "my"},
         {name: "Phim bộ Trung Quốc", name_URL: "trung-quoc"},
-        {name: "Anime", name_URL: "anime"},
-        {name: "Gameshow", name_URL: "gameshow"},
-        {name: "TV Shows", name_URL: "tv-shows"},
-        {name: "Clip ngắn", name_URL: "clip-ngan"},
+        {name: "Phim bộ Nhật Bản", name_URL: "anh"},
+        {name: "Phim bộ Thái Lan", name_URL: "han-quoc"},
         
     ]
 
@@ -38,6 +37,34 @@ function Header(props) {
     const handleUserLogout = () => {
 
         dispatch(authActions.logout())
+    }
+    
+    const handleSubmitSearch = (data) => {
+
+        let name = data.name;
+        function change_alias(alias) {
+            var str = alias;
+            str = str.trim();
+            str = str.toLowerCase();
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g,"i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
+            str = str.replace(/đ/g,"d");
+            str = str.replace(/!|@|%|\^|\*|\(|\)|\+|\=|\<|\>|\?|\/|,|\.|\:|\;|\'|\"|\&|\#|\[|\]|~|\$|_|`|-|{|}|\||\\/g," ");
+            str = str.replace(/ + /g," ");
+            str = str.replace(/ /g,"-");
+            str = str.trim();
+        
+            return str;
+        }
+        navigate({pathname: "/tim-kiem", search: `?${createSearchParams({
+            name: change_alias(name)
+                })}`
+         })
+
     }
 
     return (
@@ -60,7 +87,7 @@ function Header(props) {
                         {
                             years.map(
                                 (item, index) => {
-                                    return <Link to={`/phim-le/${item}`} key={index} className="dropdown-item">Phim lẻ {item}</Link>
+                                    return <Link to={`/phim-le/${item}`} type_movie="phimle" year={item} key={index} className="dropdown-item">Phim lẻ {item}</Link>
                                 }
 
                             )
@@ -70,7 +97,7 @@ function Header(props) {
                         {
                             phimBo.map(
                                 (item, index) => {
-                                    return <Link to={`/phim-bo/${item.name_URL}`} key={index} className="dropdown-item">{item.name}</Link>
+                                    return <Link to={`/phim-bo/${item.name_URL}`} type_movie="phimbo" key={index} className="dropdown-item">{item.name}</Link>
                                 }
 
                             )
@@ -101,14 +128,14 @@ function Header(props) {
                         }
                     </NavDropdown>
                 </Nav>
-                <Form className="d-flex form-search">
+                <Form onSubmit={handleSubmitSearch} className="d-flex form-search">
                     <FormControl
                         type="search"
+                        {...register("name")}
                         placeholder="Nhập từ khóa"
                         className="search-input"
-                        aria-label="Search"
                     />
-                    <Button variant="outline-success" className="search-submit">
+                    <Button onClick={handleSubmit(handleSubmitSearch)} type="submit" variant="outline-success" className="search-submit">
                         <i className="bi bi-search"></i>
                     </Button>
                 </Form>
@@ -124,6 +151,7 @@ function Header(props) {
                                isLoggedIn ? (
                                     <>
                                         <Link to="/tai-khoan" className="dropdown-item">Tài khoản</Link>
+                                        <Link to="/phim-yeu-thich" className="dropdown-item">Phim yêu thích</Link>
                                         <Link to="/" className="dropdown-item" onClick={handleUserLogout}>Đăng xuất</Link>
                                     </>
                                    ) 

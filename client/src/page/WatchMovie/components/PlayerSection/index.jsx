@@ -3,28 +3,14 @@ import PropTypes from 'prop-types';
 import "./style.scss"
 import VideoContainer from "../VideoContainer";
 import publicApi from "../../../../api/publicApi"
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux';
 import { movieActions } from '../../../../redux-toolkit/slice/movie';
+import userApi from '../../../../api/userApi';
+import { publicActions } from '../../../../redux-toolkit/slice/public';
+import { authActions } from '../../../../redux-toolkit/slice/auth';
 
 PlayerSection.propTypes = {
-    // _id: PropTypes.string, 
-    // name: PropTypes.string,     
-    // name_URL: PropTypes.string,     
-    // other_name: PropTypes.string,     
-    // year: PropTypes.number,     
-    // views: PropTypes.number,     
-    // Likes: PropTypes.number,     
-    // URL_image: PropTypes.string,
-    // description: PropTypes.string,
-    // duration: PropTypes.number,
-    // director: PropTypes.string,
-    // country: PropTypes.string,
-    // genres: PropTypes.string,
-    // casts: PropTypes.string,
-    // rate: PropTypes.number,
-    // episodes: PropTypes.array,
-
 
 };
 
@@ -48,11 +34,16 @@ function change_alias(alias) {
 }
 
 function PlayerSection(props) {
+    const [typeLike, setTypeLike] = useState(true);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const infomationMovie = useSelector(state => state.movie.infoMovieSelected);
     const currentEpisode = useSelector(state => state.movie.currentEpisode);
     const countries = useSelector(state => state.public.countries)
     const genres = useSelector(state => state.public.genres);
+    const isLoggedIn  = useSelector(state => state.auth.isLoggedIn)
+    const movieID = useSelector(state => state.movie._id)
+    const currentUser = useSelector(state => state.auth.currentUser)
     const [listGenres, setListGenres] = useState("");
 
     const handlePlay = () => { 
@@ -60,21 +51,36 @@ function PlayerSection(props) {
             dispatch(movieActions.updateView(infomationMovie._id));
             dispatch(movieActions.updateCurentEpisodeSuccess(infomationMovie.episodes[0]));
             window.scrollTo(0, 0);
+        }                                        
+    }    
+    
+    useEffect(() => {
+        if (currentUser && movieID) {
+            let newTypeLike = true;
+            currentUser.like_movies.map((movie) => {
+                if (movie === movieID)
+                    newTypeLike = false;
+            })
+            setTypeLike(newTypeLike)
         }
-                                        
-    }                                                                                                   
+    }, [movieID, currentUser])
 
-
-
-    const handleLike = () =>{
-      
-
+    const handleLikeMovie =async () => {
+        if (isLoggedIn)
+        {   
+            await userApi.updateNewLikeMovie({"type_like": typeLike, "movieID": movieID})
+            dispatch( authActions.reloadData())
+            dispatch( movieActions.reloadData(movieID))
+        }
+        if (!isLoggedIn) {
+            alert("Bạn chưa đăng nhập. Vui lòng đăng nhập trước");
+            navigate("/dang-nhap")
+        }
     }
 
     const handleChangeEpisode = (e) => {
         infomationMovie.episodes.map((episode) => {
             if (episode.name === e.target.innerText) {
-                console.log(infomationMovie._id);
                 dispatch(movieActions.updateView(infomationMovie._id));
                 dispatch(movieActions.updateCurentEpisodeSuccess(episode));
                 window.scrollTo(0, 0);
@@ -90,8 +96,7 @@ function PlayerSection(props) {
          <div className="player-section">
              {console.log("rerender")}
             <div className="container">
-                <VideoContainer 
-                />
+                <VideoContainer  />
                 <div className="movie-detail row mt-3">
                     <div className=" movie-detail-left col-md-4 col-12 ">
                         <img className="movie-image" src={infomationMovie.URL_image} alt={infomationMovie.name} />
@@ -101,13 +106,14 @@ function PlayerSection(props) {
                             <h2 className="movie-name">{infomationMovie.name}</h2>
                             <h4 className="movie-other_name">{infomationMovie.other_name} ({infomationMovie.year})</h4>
                             <div className="detail-info-popular row">
-                                <div className="detail-info-like col-md-2 col-6">
-                                    <i className='bi bi-hand-thumbs-up-fill'></i>
-                                    <span>{infomationMovie.likes}</span>
-                                </div>
+
                                 <div className="detail-info-view col-md-2 col-6">
                                     <i className='bi bi-eye-fill'></i>
                                     <span>{infomationMovie.views}</span>
+                                </div>
+                                <div className="detail-info-view col-md-2 col-6">
+                                    <i className='bi bi-hand-thumbs-up-fill'></i>
+                                    <span>{infomationMovie.likes}</span>
                                 </div>
                             </div>
                         </div>
@@ -127,7 +133,7 @@ function PlayerSection(props) {
                         <div className="row">
                             <div className="col-md-6 col-12">
                                 <ul className="more-info">
-                                    <li><span>Thời lượng:</span> {infomationMovie.duration}</li>
+                                    <li><span>Thời lượng:</span> {infomationMovie.duration} phút</li>
                                     <li><span>Đạo diễn:</span> {infomationMovie.director}</li>
                                     <li><span>Quốc gia:</span> {
                                         countries?.map(
@@ -141,25 +147,11 @@ function PlayerSection(props) {
                                     </li>
                                     <li><span>Năm phát hành:</span> {infomationMovie.year}</li>
                                     <li><span>Diễn viên:</span> {infomationMovie.casts}</li>
-                                    <li><span>Đánh giá:</span> {infomationMovie.rate}</li>
                                 </ul>
                             </div>
                         </div>
-                        <div className="rating-movie">
-                            <h4>Đánh giá: </h4>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                            <i className="bi bi-star-fill "></i>
-                        </div>
                         <div className="liking-movie">
-                            <button>like</button>
+                            <button onClick={handleLikeMovie}>{(typeLike)? "Like" : "Unlike"}</button>
                         </div>
                     </div>
                 </div>

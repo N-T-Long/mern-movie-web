@@ -47,6 +47,9 @@ const authSlice = createSlice({
       state.isRegistering = false;
       state.currentUser = undefined;
     },
+    reloadData(state, action) {
+      state.currentUser = action.payload;
+    },
   },
 });
 

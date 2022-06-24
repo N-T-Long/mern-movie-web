@@ -37,7 +37,7 @@ const movieSlice = createSlice({
         other_name: action.payload.other_name,
         year: action.payload.year,
         views: action.payload.views,
-        Likes: action.payload.Likes,
+        likes: action.payload.likes,
         URL_image: action.payload.URL_image,
         description: action.payload.description,
         duration: action.payload.duration,
@@ -75,7 +75,7 @@ const movieSlice = createSlice({
         other_name: action.payload.other_name,
         year: action.payload.year,
         views: action.payload.views,
-        Likes: action.payload.Likes,
+        likes: action.payload.likes,
         URL_image: action.payload.URL_image,
         description: action.payload.description,
         duration: action.payload.duration,
@@ -110,6 +110,9 @@ const movieSlice = createSlice({
     },
     updateCurentEpisodeSuccess(state, action) {
       state.currentEpisode = action.payload;
+    },
+    reloadData(state, action) {
+      state.isUpdating = true;
     },
   },
 });

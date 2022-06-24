@@ -20,7 +20,8 @@ function WatchMovie(props) {
         // update current movie 
         const movieURL = location.pathname.split("/")[2];
         dispatch(movieActions.isSelecting(movieURL))
-    },[]) 
+        dispatch(movieActions.updateCurentEpisodeSuccess(undefined))
+    },[location.pathname.split("/")[2]]) 
 
 
     return (
@@ -32,8 +33,14 @@ function WatchMovie(props) {
             <div className="nominations row">
                 <div className="container">
 
-                <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
-                <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
+                <MovieList 
+                    movieListTitle="Phim gợi ý"
+                    query={{
+                        "_page" : "1",
+                        "_limit" : "6"
+                    }} 
+                />
+
                 </div>
             </div>
             <CommentSection/>

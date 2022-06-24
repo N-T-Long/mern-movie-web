@@ -67,5 +67,6 @@ export default function* authSaga() {
   if (isLoggedIn) {
     yield call(handleIsLoggedIn);
   }
+  yield takeEvery(authActions.reloadData.type, handleIsLoggedIn);
   yield takeEvery(authActions.register.type, handleRegister);
 }

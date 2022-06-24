@@ -17,23 +17,6 @@ Home.propTypes = {
 };
 
 function Home(props) {
-    const [movies, setMovies] = useState([]);
-  
-    
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-                const response = await publicApi.getMovies();
-                setMovies(response.movies)
-            } catch (error) {
-                console.log("Falsed to fetch movie list", error);
-            }
-        }
-        
-        fetchMovies();
-    },[])
-
-
 
     return (
         <>
@@ -42,18 +25,14 @@ function Home(props) {
             // style={{paddingTop :"500px"}}
             >
                 <Container >
-                <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
-                    {/* <Row>
-                        <Col  sm={8} >
-                            <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
-                        </Col>
-                        <div className="col-sm-4 col-12 mt-2">
-                            <div className="hot-panel-header">
-                                <img src={headPhimBo} alt="" style={{width: "100%"}} />                                    
-                            </div>
-                            <HotPanel/>
-                        </div>
-                    </Row> */}
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "genres" : "629c74ca1fe09d0c71de1098"}} movieListTitle="Không thể bỏ lỡ"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "genres" : "629c74d91fe09d0c71de109c"}}  movieListTitle="Phim chiếu rạp"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "genres" : "629c74e01fe09d0c71de109e"}}  movieListTitle="Phim Mới"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "type_movie" : "phimle"}} movieListTitle="Phim lẻ"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "type_movie" : "phimbo"}} movieListTitle="Phim bộ"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "genres" : "629c74ec1fe09d0c71de10a2"}}  movieListTitle="Phim siêu anh hùng"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "genres" : "629c74f61fe09d0c71de10a6"}}  movieListTitle="Phim hoạt hình"/>
+                     <MovieList query={{"_page" : "1", "_limit" : "6", "genres" : "629c75191fe09d0c71de10a8"}}  movieListTitle="Phim kinh dị"/>
                 </Container>
             </div>
         </>

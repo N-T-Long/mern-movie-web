@@ -6,7 +6,9 @@
 
 
 ### GET all movie
-GET http://localhost:5000/api/movies/
+GET http://localhost:5000/api/movies?type_movie=phimle
+Content-Type: application/json
+
 ###
 
 

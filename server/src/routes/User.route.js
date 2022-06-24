@@ -33,7 +33,7 @@ route.get("/like-movies", verifyAccessToken, getListLikeMovies);
 // @Route POST /api/user/like-movies
 // @desc add a movie in list like-movies
 // @access private
-route.post("/like-movies/new", verifyAccessToken, addNewLikeMovie);
+route.patch("/like-movies/new", verifyAccessToken, addNewLikeMovie);
 
 // @Route GET /api/user/follow-movies
 // @desc List movie user followd

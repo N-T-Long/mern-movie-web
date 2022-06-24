@@ -7,9 +7,10 @@ AdminLayout.propTypes = {
 
 function AdminLayout(props) {
     return ( 
-        <>  
+        <>  <div className="row">
+        </div>
             <Sidebar/>
-            <div className="content-admin" style={{marginLeft: "300px", backgroundColor: "#2c3034", minHeight: "929px", borderLeft: "solid 3px #34383c"}}>
+            <div className="content-admin" style={{position: "absolute", top: "0", left: "15%", backgroundColor: "#2c3034", minHeight: "100vh",minWidth: "calc(85%)", borderLeft: "solid 3px #34383c"}}>
                 {props.children}
                 
             </div>

@@ -2,12 +2,11 @@ const express = require("express");
 const route = express.Router();
 
 const {
-  getAllCategories,
+  getAllMovies,
   getAllUsers,
   getALlSlides,
   getAllGenre,
   getAllCountry,
-  createCategory,
   createNewEpisode,
   createNewMovie,
   createNewSlide,
@@ -65,7 +64,7 @@ route.post(
 // @Router DELETE /api/admin/movies/:movieID
 // @desc Delete a movie
 // @access private
-route.delete(
+route.post(
   "/movies/:movieID/delete",
   verifyAccessToken,
   authPage(["admin"]),
@@ -91,6 +90,11 @@ route.patch(
   authPage(["admin"]),
   createNewEpisode
 );
+
+// @Router GET /api/admin/movies
+// @desc Get all slide
+// @access private
+route.get("/movies", verifyAccessToken, authPage(["admin"]), getAllMovies);
 
 /////////////////////////////////////////////////////////////////////////////////
 // Another routes

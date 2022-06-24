@@ -5,9 +5,10 @@ const publicApi = {
     let url = "/categories";
     return axiosClient.get(url);
   },
-  getMovies: (params) => {
+  getMovies: (a) => {
     let url = "/movies";
-    return axiosClient.get(url, params);
+
+    return axiosClient.get(url, { params: a });
   },
   getMovieByURL: (movieURL) => {
     let url = `/movies/url/${movieURL}`;

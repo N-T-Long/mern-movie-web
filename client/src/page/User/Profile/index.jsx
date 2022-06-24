@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import "./style.scss"
 import { Row, Col, Tab, Nav, NavItem, Form, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 Profile.propTypes = {
 
 };
 
 function Profile(props) {
+    const profile = useSelector(state => state.auth.currentUser)
 
     return (
         <div className='container'>
@@ -31,7 +33,7 @@ function Profile(props) {
                                                 <Form id="profileForm">
                                                     <li>
                                                         <Form.Label>Username</Form.Label>
-                                                        <Form.Label>bachga123</Form.Label>
+                                                        <Form.Label>{profile.username}</Form.Label>
                                                     </li>
                                                     <li>
                                                         <Form.Label>Họ tên</Form.Label>
@@ -43,7 +45,7 @@ function Profile(props) {
                                                     </li>
                                                     <li>
                                                         <Form.Label>Email</Form.Label>
-                                                        <input type="text" name="email" placeholder='email'></input>
+                                                        <input type="text" name="email" placeholder='email' value={profile.email}></input>
                                                     </li>
                                                     <Button type="button" id="btnProfile" className="btn-orange" data-toggle="modal" data-target="#success-modal">Lưu lại</Button>
                                                 </Form>

@@ -1,4 +1,4 @@
-import React , {useEffect, useState} from 'react';
+import React , {useEffect, useLayoutEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import MovieList from "../../components/Movie/MovieList"
 import publicApi from "../../api/publicApi"
@@ -9,30 +9,110 @@ import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 PageMovieList.propTypes = {
-    type_movie: PropTypes.string,
 
-    
 };
 
 
 
 function PageMovieList(props) {
-    const [param, setParam ] = useState({})
-    const [movies, setMovies] = useState([]);
+    
+    const location = useLocation();
     const countries = useSelector(state => state.public.countries)
     const genres = useSelector(state => state.public.genres)
     const years = [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022]
     const { register, handleSubmit, formState: { errors } , control} = useForm()
+    const [listMovie, setListMovie] = useState([]);
+
+    
+    const [query, setQuery] = useState(() => {
+        let initQuery = {};
+        if (location.pathname.split("/")[1] === "phim-le"){
+            let year = location.pathname.split("/")[2];
+            let newInitQuery = {...initQuery, "type_movie": "phimle", "year" : year}
+            initQuery  = newInitQuery;
+        }
+
+        if (location.pathname.split("/")[1] === "phim-bo"){
+            let countryName = location.pathname.split("/")[2];
+            let countryID = "";
+            countries.map( item => {if (item.name_URL === countryName) countryID = item._id})
+            let newInitQuery = {...initQuery, "type_movie": "phimbo", "country" : countryID}
+            initQuery  = newInitQuery;
+
+        }
+
+        if (location.pathname.split("/")[1] === "quoc-gia"){
+            let countryName = location.pathname.split("/")[2];
+            let countryID = "";
+            countries.map( item => {if (item.name_URL === countryName) countryID = item._id})
+            let newInitQuery = {...initQuery, "country" : countryID}
+            initQuery  = newInitQuery;
+        }
+
+        if (location.pathname.split("/")[1] === "the-loai"){
+            let genresName = location.pathname.split("/")[2];
+            let genresID = "";
+            genres.map( item => {if (item.name_URL === genresName) genresID = item._id})
+            let newInitQuery = {...initQuery, "genres" : genresID}
+            initQuery  = newInitQuery;
+        }
+        console.log(initQuery)
+        return initQuery
+    });
+    
+
+
+    useEffect( () => {
+        
+        function getQueryInURL(){
+
+            if (location.pathname.split("/")[1] === "phim-le"){
+                let year = location.pathname.split("/")[2];
+                setQuery({...query, "type_movie": "phimle", "year" : year, "name": "", "country": "", "genres" :""})
+            }
+
+            if (location.pathname.split("/")[1] === "phim-bo"){
+                let countryName = location.pathname.split("/")[2];
+                let countryID = "";
+                countries.map( item => {if (item.name_URL === countryName) countryID = item._id})
+                setQuery({...query, "type_movie": "phimbo", "country" : countryID,  "name": "", "genres" :"", "year" : ""})
+
+
+            }
+
+            if (location.pathname.split("/")[1] === "quoc-gia"){
+                let countryName = location.pathname.split("/")[2];
+                let countryID = "";
+                countries.map( item => {if (item.name_URL === countryName) countryID = item._id})
+                setQuery({...query, "type_movie": "",  "country" : countryID,  "name": "",  "genres" :"", "year" : ""})
+
+            }
+
+            if (location.pathname.split("/")[1] === "the-loai"){
+                let genresName = location.pathname.split("/")[2];
+                let genresID = "";
+                genres.map( item => {if (item.name_URL === genresName) genresID = item._id})
+                setQuery({...query, "type_movie": "","genres" : genresID,  "name": "", "country": "",  "year" : ""})
+            }
+
+            if (location.pathname.split("/")[1] === "tim-kiem"){
+                setQuery({...query, "name" : location.search.split("name=")[1], "country": "", "genres" :"", "year" : "", "type_movie" : ""} )
+            }
+
+        };
+        getQueryInURL();
+
+    }, [location.pathname, location.search])
 
     useEffect(() => {
-        const getMovies = async () => {
-            console.log(param);
-            const res = await publicApi.getMovies(param);
-            setMovies(res.movies)
+        const fetchMovies = async () =>{
+            const res = await publicApi.getMovies(query)
+            setListMovie(res) 
         }
-        getMovies();
-        console.log("rerender");
-    },[param])
+
+        fetchMovies();
+    }, [query] )
+    
     
     return (
         
@@ -45,8 +125,7 @@ function PageMovieList(props) {
                     <Form.Select
                         {...register('country')}
                         onChange={(e) => {
-                            const newParam = {...param, "country": e.target.value };
-                            setParam(newParam);
+                            setQuery({...query, "country" : e.target.value})
                         }
                         }
                     >   
@@ -65,8 +144,7 @@ function PageMovieList(props) {
                     <Form.Select
                         {...register('genres')}
                         onChange={(e) => {
-                            const newParam = {...param, "genres": e.target.value };
-                            setParam(newParam);
+                            setQuery({...query, "genres" : e.target.value})
                             }
                         }   
                     >   
@@ -84,12 +162,11 @@ function PageMovieList(props) {
                     <Form.Select
                         {...register('year')}
                         onChange={(e) => {
-                            const newParam = {...param, "year": e.target.value };
-                            setParam(newParam);
+                            setQuery({...query, "year" : e.target.value})
                             }
                         }   
                     >   
-                        <option year=""> Tất cả</option>
+                        <option value=""> Tất cả</option> 
                         {
                             years?.map((year, index) => 
                                 <option key={index} value={year}>{year}</option>
@@ -99,7 +176,7 @@ function PageMovieList(props) {
                 </Form.Group>
                 </Row>
             </Form>
-            <MovieList movieList={movies} movieListTitle="Phim lẻ"/>
+            <MovieList isPageSearch={true} listMovie={listMovie}/>
         </div>
     );
 }

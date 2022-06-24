@@ -36,7 +36,7 @@ const MovieSchema = new Schema({
     enum: ["phimle", "phimbo"],
   },
   year: {
-    type: Number,
+    type: String,
   },
   duration: Number,
   description: String,
@@ -71,8 +71,14 @@ const MovieSchema = new Schema({
     },
   ],
   rate: {
-    type: Number,
-    default: 0,
+    amount: {
+      type: Number,
+      default: 0,
+    },
+    total: {
+      type: Number,
+      default: 0,
+    },
   },
   URL_image: String,
   create_at: {

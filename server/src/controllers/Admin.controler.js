@@ -1,31 +1,5 @@
-const Category = require("../models/Category");
-
+const mongoose = require("mongoose");
 const { User, Movie, Slide, Genre, Country } = require("../models/index");
-
-const createCategory = async (req, res) => {
-  const { name, url, group } = req.body;
-
-  try {
-    if (name && url && group) {
-      const newCategory = new Category({ name, url, group });
-      await newCategory.save();
-      return res.status(200).json({
-        success: true,
-        messeage: "Create category success",
-      });
-    } else
-      return res.status(400).json({
-        success: false,
-        message: "Mixing infomation",
-      });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
 
 const createNewCountry = async (req, res) => {
   const { name, name_URL } = req.body;
@@ -66,6 +40,7 @@ const createNewEpisode = async (req, res) => {
       success: false,
       message: "Movie not found!!",
     });
+
   try {
     const episodes = movie.episodes;
     const newEpisode = [
@@ -74,6 +49,7 @@ const createNewEpisode = async (req, res) => {
         _id: new mongoose.Types.ObjectId(),
       },
     ];
+
     const newEpisodes = [...episodes, ...newEpisode];
     await Movie.findByIdAndUpdate(req.params.movieID, {
       episodes: newEpisodes,
@@ -184,13 +160,13 @@ const createNewMovie = async (req, res) => {
 const createNewSlide = async (req, res) => {
   const { URL_image, URL_movie, name, other_name } = req.body;
   if (!URL_image) {
-    return res.status(401).json({
+    return res.status(200).json({
       success: false,
       message: "Mixing URL_Image",
     });
   }
   if (!URL_movie) {
-    return res.status(401).json({
+    return res.status(200).json({
       success: false,
       message: "Mixing URL_movie",
     });
@@ -206,29 +182,13 @@ const createNewSlide = async (req, res) => {
     // remove first slice if count > 4
     if (slides.length > 3) await Slide.findByIdAndRemove(slides[0]._id);
 
-    return res.status(401).json({
+    return res.status(200).json({
       success: true,
       message: "New slide created",
     });
   } catch (error) {
     console.log(error);
     return res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
-  }
-};
-
-const getAllCategories = async (req, res) => {
-  try {
-    const category = await Category.find();
-    res.status(200).json({
-      success: true,
-      category,
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(500).json({
       success: false,
       message: "Internal server error",
     });
@@ -251,12 +211,12 @@ const getAllCountry = async (req, res) => {
   }
 };
 
-const getAllGenre = async (req, res) => {
+const getAllMovies = async (req, res) => {
   try {
-    const genres = await Genre.find();
+    const movies = await Movie.find().sort({ create_at: -1 });
     return res.status(200).json({
       success: true,
-      genres,
+      movies,
     });
   } catch (error) {
     console.log(error);
@@ -267,12 +227,12 @@ const getAllGenre = async (req, res) => {
   }
 };
 
-const getAllMovies = async (req, res) => {
+const getAllGenre = async (req, res) => {
   try {
-    const movies = await Movie.find();
+    const genres = await Genre.find();
     return res.status(200).json({
       success: true,
-      movies,
+      genres,
     });
   } catch (error) {
     console.log(error);
@@ -418,8 +378,6 @@ const updateMovie = async (req, res) => {
 module.exports = {
   getAllMovies,
   getAllUsers,
-  getAllCategories,
-  createCategory,
   createNewMovie,
   createNewEpisode,
   deleteMovie,

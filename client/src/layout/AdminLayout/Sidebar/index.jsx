@@ -21,7 +21,7 @@ function Sidebar(props) {
             <div className='list-category'>
                 <Link to="/admin/trang-chu">
                 
-                    <div className={`category ${(location === "trang-chu") ? "active" : ""}`}>
+                    <div className={`category ${((location === "trang-chu") || (location === undefined)) ? "active" : ""}`}>
                         <div className="category-icon">
                             <i className="bi bi-house-door" ></i>
                         </div>
@@ -37,6 +37,16 @@ function Sidebar(props) {
                         </div>
                         <div className={"category-name" }>
                             <p >Danh sách phim</p>
+                        </div>
+                    </div>
+                </Link>
+                <Link to="/admin/danh-sach-tai-khoan">
+                    <div className={`category ${(location === "danh-sach-tai-khoan") ? "active" : ""}`}>
+                        <div className="category-icon">
+                            <i className="bi bi-person-lines-fill" ></i>
+                        </div>
+                        <div className={"category-name" }>
+                            <p >Danh sách tài khoản</p>
                         </div>
                     </div>
                 </Link>
