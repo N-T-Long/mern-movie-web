@@ -13,10 +13,11 @@ function* handleIsLoggedIn() {
 function* handleLogin(action) {
   try {
     const res = yield call(authApi.loggin, action.payload);
+    console.log("res", res);
     if (res.success) {
       localStorage.setItem("token", res.accessToken);
       yield delay(500);
-      yield alert("Đăng nhập thành công");
+      //yield alert("Đăng nhập thành công");
       yield call(handleIsLoggedIn);
     } else {
       yield alert("Sai tài khoản hoặc mật khẩu");
@@ -32,10 +33,12 @@ function* handleRegister(action) {
   try {
     const res = yield call(authApi.register, action.payload);
     console.log("res", res);
-    localStorage.setItem("token", res.accessToken);
-    yield delay(500);
-    yield alert("Đăng ký thành công");
-    yield call(handleIsLoggedIn);
+    if (res.success === true) {
+      localStorage.setItem("token", res.accessToken);
+      yield delay(500);
+      yield alert("Đăng ký thành công");
+      yield call(handleIsLoggedIn);
+    } else yield call(authApi.registerFailed);
   } catch (error) {
     console.log(error);
     yield put(authActions.registerFailed);
@@ -44,6 +47,7 @@ function* handleRegister(action) {
 
 function* handleLogout(action) {
   yield localStorage.removeItem("token");
+  yield call(authActions.logout);
 }
 
 function* watchLoginFlow(action) {
@@ -53,6 +57,8 @@ function* watchLoginFlow(action) {
     if (!isLoggedIn) {
       yield takeEvery(authActions.login.type, handleLogin);
     }
+
+    // yield call(handleIsLoggedIn);
 
     yield take(authActions.logout.type);
     yield fork(handleLogout);

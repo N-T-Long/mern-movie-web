@@ -46,6 +46,7 @@ const authSlice = createSlice({
     registerFailed(state, action) {
       state.isRegistering = false;
       state.currentUser = undefined;
+      state.islogging = false;
     },
     reloadData(state, action) {
       state.currentUser = action.payload;

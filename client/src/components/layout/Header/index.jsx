@@ -146,7 +146,7 @@ function Header(props) {
                                 currentUser?.URL_avatar ? (<img src={currentUser.URL_avatar}/>) : (<i className="bi bi-person-circle"></i>)
                             }
                          </div>
-                        <NavDropdown menuVariant="dark" title={currentUser?.username ? currentUser.username : "Tài khoản"} id="account-dropdown" className=" nav-item">
+                        <NavDropdown style={{width: "250px"}} menuVariant="dark" title={currentUser?.username ? currentUser.username : "Tài khoản"} id="account-dropdown" className=" nav-item">
                            {
                                isLoggedIn ? (
                                     <>

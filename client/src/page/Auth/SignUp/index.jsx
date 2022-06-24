@@ -44,7 +44,7 @@ function SignUp(props) {
             password: data.password,
             email: data.email,
         }));
-        navigate("/")
+        
    };
 
    const handleError = (errors) => { };

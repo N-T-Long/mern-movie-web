@@ -114,7 +114,7 @@ function AdminHome(props) {
                                         <tr key={index} onClick={() => navigate(`/xem-phim/${movie.name_URL}`)}>
                                             <td>{index}</td>
                                             <td>{movie.name}</td>
-                                            <td>{movie.other_name} phút</td>
+                                            <td>{movie.other_name}</td>
                                             <td>{(movie.type_movie === "phimle" )? "Phim lẻ" : "Phim bộ" }</td>
                                             <td>{movie.views}</td>
                                         </tr>
